@@ -13,16 +13,24 @@
 // limitations under the License.
 
 /**
- * Adds a random greeting to the page.
+ * Adds a random fact to the page.
  */
-function addRandomGreeting() {
-  const greetings =
-      ['I love K-pop', 'I  hate snakes', 'Kdrama has been my go-to in this quarantine', 'people I know in Google are nice!','I don\'t know much about front-end, mostly because I imagine that I have to design stuffs', 'I dont like working from home', 'Hate to miss the Google office experience :(' ];
+function addRandomFact() {
+  const facts =
+      [
+          'I love K-pop', 
+          'I  hate snakes', 
+          'Kdrama has been my go-to in this quarantine', 
+          'people I know in Google are nice!',
+          'I don\'t know much about front-end, mostly because I imagine that I have to design stuffs', 
+          'I dont like working from home', 
+          'Hate to miss the Google office experience :(, hope I can visit the office in the future' 
+      ];
 
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+  // Pick a random fact.
+  const fact = facts[Math.floor(Math.random() * facts.length)];
 
   // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+  const factContainer = document.getElementById('fact-container');
+  factContainer.innerText = fact;
 }
