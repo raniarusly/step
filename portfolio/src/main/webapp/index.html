@@ -14,7 +14,8 @@
   <style>
   </style>
   <body>
-    <div id="content">
+    <div id="home">
+
       <nav class="w3-bar w3-black">
           <a href="/" class="w3-bar-item w3-button">Home</a>
           <a href="experience.html" class="w3-bar-item w3-button">Experience</a>
@@ -23,31 +24,31 @@
           <a href="#" class="w3-bar-item w3-button">Contact</a>
           <a href="#" class="w3-bar-item w3-right"><b>Rania Rusly</b></a>
       </nav>
-      <div class="w3-cell-row w3-sand" style="height:300px">
-        <div class ="w3-cell w3-center w3-mobile middle"> 
-          <img src="/images/profilepic.png" style="max-width:200px">
+
+      <div class="w3-cell-row section">
+        <div class ="w3-cell w3-center w3-mobile middle" style="width:300px"> 
+          <img src="/images/profilepic.png" style="width:250px"">
         </div>
-        <div class="w3-cell w3-center w3-mobile middle">
-          <p>Hello! Nice to meet you, my name is</p>
-          <h2>Rania Rusly</h2>
-          <h4>STEP intern at Google</h4>
+        <div class="w3-cell w3-center w3-mobile middle w3-padding-32">
+          <div class="sub-title"><p>Hello! Nice to meet you, my name is</p></div>
+          <div class="title"><p>Rania Rusly</p></div>
+          <div class="sub-title"><p>STEP intern at Google</p></div>
           <div class = "w3-container">
             <a href="https://www.instagram.com/raniatamara/">
-              <i class="w3-button fa fa-instagram sns-icon"></i>
+              <i class="w3-button fa fa-instagram " style="font-size:50px"></i>
             </a>
             <a href="https://www.linkedin.com/in/rania-rusly-a08132157/">
-              <i class="w3-button fa fa-linkedin-square sns-icon"></i>
+              <i class="w3-button fa fa-linkedin-square" style="font-size:50px"></i>
             </a>
             <a href="https://github.com/raniarusly">
-              <i class="w3-button fa fa-github-square sns-icon"></i>
+              <i class="w3-button fa fa-github-square" style="font-size:50px"></i>
             </a>
           </div>
         </div>
       </div>
 
-      <!--about me-->
-      <div class="w3-container w3-pale-red">
-        <h2>About Me</h2> 
+      <div class="w3-container section">
+        <div class="title"><p>About Me</p></div> 
         <p>Hi I love milk and chocolate but do not like chocolate milk</p>
         <p>Mostly she likes to eat food and sleep.</p>
         <p>I copy pasted the second line of introduction from Stanley the cat's web and apparently it perfectly describes me too</p>
@@ -55,6 +56,42 @@
         <button onclick="addRandomFact()">poof</button>
         <div id="fact-container"></div>
       </div>
+
+      <div style="height:100px"></div>
+
+      <div class="w3-container section">
+        <div class="title"><p>Work Experience</p></div>
+        <div class="w3-cell-row w3-padding"> 
+            <div class ="w3-cell w3-center w3-mobile middle"> 
+            <a href="experience.html">
+                <img src="/images/google-logo.png" style="padding:15px;">
+                <div class ="company"><p>Google</p></div>
+            </a>
+            <p>July - Sept 2020</p>
+            </div>
+            <div class ="w3-cell w3-center w3-mobile middle"> 
+            <a href="experience.html">
+                <img src="/images/genG-logo.png">
+                <div class ="company"><p>Generation Girl</p></div>
+            </a>
+            <p>Apr - June 2020</p>
+            </div>
+            <div class ="w3-cell w3-center w3-mobile middle"> 
+            <a href="experience.html">
+                <img src="/images/gojek-logo.png">
+                <div class ="company"><p>Gojek</p></div>
+            </a>
+            <p>July - Sept 2019</p>
+            </div>
+            <div class ="w3-cell w3-center w3-mobile middle">
+            <a href="experience.html">
+                <img src="/images/gdp-logo.png">
+                <div class ="company"><p>GDP Labs</p></div>
+            </a>
+            <p>July - Aug 2018</p>
+            </div>
+        </div>
+      </div>  
     </div>    
   </body>
 </html>

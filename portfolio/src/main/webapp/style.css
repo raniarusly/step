@@ -1,36 +1,38 @@
 body {
-    background-color: #FAFAFA;
     font-family: 'Sora', Sans-serif;
     display: flex;
     flex-direction: column;
 }
 
-h1 {
+.title {
     font-family: 'Sora', Sans-serif;
     font-weight: 700;
     font-size: 48px;
 }
-h2 {
+
+.sub-title {
     font-family: 'Sora', Sans-serif;
-    font-weight: 1000;
-    font-size: 32px;
+    font-weight: 500;
+    font-size: 28px;
 }
-h3 {
-    font-family: 'Sora', Sans-serif;
-    font-weight: 400;
-    font-size: 24px;
-}
-h4 {
-    font-family: 'Sora', Sans-serif;
-    font-weight: 400;
-    font-size: 18px;
+
+
+#home {
+  margin-left: auto;
+  margin-right: auto;
+  width: 900px;
+  font-family: 'Sora', Sans-serif;
+  background-image: url('/images/home-background.jpg');
+  background-size:900px auto;
 }
 
 #content {
   margin-left: auto;
   margin-right: auto;
-  width: 750px;
+  width: 900px;
   font-family: 'Sora', Sans-serif;
+  background-image: url('/images/home-background.jpg');
+  background-size: 900px auto;
 }
 
 #fact-container {
@@ -38,7 +40,18 @@ h4 {
 }
 
 .sns-icon {
-    font-size: 30px;
+    border: none;
+    display: inline-block;
+    padding: 8px 16px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    background-color: inherit;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 70px;
 }
 
 .middle {
@@ -62,4 +75,11 @@ h4 {
     font-size: 20px;
 }
 
+img {
+    border-radius: 50%;
+    width: 150px;
+}
 
+.section{
+    height: 400px;
+}
