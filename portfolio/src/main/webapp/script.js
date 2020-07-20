@@ -34,3 +34,42 @@ function addRandomFact() {
   const factContainer = document.getElementById('fact-container');
   factContainer.innerText = fact;
 }
+
+function getKdramaRecommendation() {
+  const recommendations =
+      [
+          {
+              title:"Crash Landing On You",
+              cover:"/images/kdrama/cloy.jpg",
+              link:"http://asianwiki.com/Crash_Landing_on_You"
+          },
+          {
+              title:"Goblin",
+              cover:"/images/kdrama/goblin.jpg",
+              link:"http://asianwiki.com/Guardian:_The_Lonely_and_Great_God"
+          },
+          {
+              title:"Itaewon Class",
+              cover:"/images/kdrama/itaewon-class.jpg",
+              link:"http://asianwiki.com/Itaewon_Class"
+          },
+          {
+              title:"Extracurricular",
+              cover:"/images/kdrama/extracurricular.jpg",
+              link:"http://asianwiki.com/Extracurricular"
+          },
+          {
+              title:"Hospital Playlist",
+              cover:"/images/kdrama/hospital-playlist.jpg",
+              link:"http://asianwiki.com/Hospital_Playlist"
+          }
+      ];
+
+  // Get a K-drama series recommendation.
+  const recommendation = recommendations[Math.floor(Math.random() * recommendations.length)];
+
+  // Add it to the page.
+  document.getElementById("kdrama-cover").src = recommendation.cover;
+  document.getElementById("kdrama-title").innerText = recommendation.title;
+  document.getElementById("kdrama-title").href = recommendation.link;
+}

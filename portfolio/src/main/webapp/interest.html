@@ -14,22 +14,29 @@
   <style>
   </style>
   <body>
-    <div id="home">
+    <div id="content">
 
       <nav class="w3-bar w3-black">
-          <a href="/" class="w3-bar-item w3-button">Home</a>
-          <a href="experience.html" class="w3-bar-item w3-button">Experience</a>
-          <a href="#" class="w3-bar-item w3-button">Interest</a>
-          <a href="#" class="w3-bar-item w3-button">Gallery</a>
-          <a href="#" class="w3-bar-item w3-button">Contact</a>
-          <a href="#" class="w3-bar-item w3-right"><b>Rania Rusly</b></a>
+        <a href="index.html" class="w3-bar-item w3-button">Home</a>
+        <a href="experience.html" class="w3-bar-item w3-button">Experience</a>
+        <a href="/" class="w3-bar-item w3-button">Interest</a>
+        <a href="#" class="w3-bar-item w3-button">Gallery</a>
+        <a href="#" class="w3-bar-item w3-button">Contact</a>
+        <a class="w3-bar-item w3-right"><b>Rania Rusly</b></a>
       </nav>
 
       <div class="w3-cell-row section">
-          <div class="Title">K-drama</div>
-          <p>Hi! I watch lots and lots of K-drama. Since I have wasted so many hours on it, I would be happy to provide recommendations for you.</p>
-          <p>If you are feeling bored and want to try a K-drama, I will easily recommend one for you!</p>
-          <button onclick="getKdrama()">Recommend a K-drama</button>
+        <div class="title">K-drama</div>
+        <p>Hi! I watch lots and lots of K-drama, from romance to thriller</p>
+        <p>Since I have wasted countless hours on it, I would be happy to provide recommendations.</p>
+        <p>If you are feeling bored and want to try a K-drama, I will easily recommend one for you!</p>
+        <div class="w3-center">
+          <button onclick="getKdramaRecommendation()">Recommend me a K-drama</button>
+          <br>
+          <a id="kdrama-title" class="sub-title"></a>
+          <br>
+          <img id="kdrama-cover" width="500px" style="padding:30px">
+        </div>
       </div>
 
     </div>    

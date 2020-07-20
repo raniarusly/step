@@ -20,7 +20,6 @@ body {
 #home {
   margin-left: auto;
   margin-right: auto;
-  width: 900px;
   font-family: 'Sora', Sans-serif;
   background-image: url('/images/home-background.jpg');
   background-size:900px auto;
@@ -29,9 +28,8 @@ body {
 #content {
   margin-left: auto;
   margin-right: auto;
-  width: 900px;
   font-family: 'Sora', Sans-serif;
-  background-image: url('/images/home-background.jpg');
+  background-image: url('/images/background.jpg');
   background-size: 900px auto;
 }
 
@@ -63,7 +61,7 @@ body {
     padding-right: 32px;
 }
 
-.company {
+.sub-title {
      font-family: 'Be Vietnam', sans-serif;
     font-weight: 800;
     font-size: 30px;
@@ -75,11 +73,12 @@ body {
     font-size: 20px;
 }
 
-img {
+.img-circle {
     border-radius: 50%;
     width: 150px;
 }
 
 .section{
     height: 400px;
+    padding: 30px 20px;
 }
