@@ -22,12 +22,14 @@ body {
   margin-right: auto;
   font-family: 'Sora', Sans-serif;
   background-image: url('/images/home-background.jpg');
+  width: 900px;
   background-size:900px auto;
 }
 
 #content {
   margin-left: auto;
   margin-right: auto;
+  width: 900px;
   font-family: 'Sora', Sans-serif;
   background-image: url('/images/background.jpg');
   background-size: 900px auto;
@@ -56,6 +58,7 @@ body {
     font-family: 'Be Vietnam', sans-serif;
     font-weight: 500;
     font-size: 20px;
+    line-height: 80%;
 }
 
 .img-circle {
@@ -65,5 +68,5 @@ body {
 
 .section{
     height: 400px;
-    padding: 30px 20px;
+    padding: 50px 30px;
 }
