@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>My Portfolio - Interest</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+  </head>
+  <style>
+  </style>
+  <body>
+    <div id="content">
+
+      <!-- navigation bar -->
+      <nav class="w3-bar w3-black">
+        <a href="index.html" class="w3-bar-item w3-button">Home</a>
+        <a href="experience.html" class="w3-bar-item w3-button">Experience</a>
+        <a href="/" class="w3-bar-item w3-button">Interest</a>
+        <!-- TODO: To be implemented -->
+        <a href="#" class="w3-bar-item w3-button">Gallery</a>
+        <a class="w3-bar-item w3-right"><b>Rania Rusly</b></a>
+      </nav>
+
+      <!-- K-drama -->
+      <div class="w3-cell-row section">
+        <h1>K-drama</h1>
+        <p>Hi! I watch lots and lots of K-drama, from romance to thriller</p>
+        <p>Since I have wasted countless hours on it, I would be happy to provide recommendations.</p>
+        <p>If you are feeling bored and want to try a K-drama, I will easily recommend one for you!</p>
+        <div class="w3-center">
+          <button onclick="getKdramaRecommendation()">Recommend me a K-drama</button>
+          <br>
+          <h2><a id="kdrama-title"></a></h2>
+          <br>
+          <img id="kdrama-cover" width="400px">
+        </div>
+      </div>
+
+    </div>    
+  </body>
+</html>
