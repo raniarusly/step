@@ -75,7 +75,13 @@ function getKdramaRecommendation() {
   const recommendation = recommendations[Math.floor(Math.random() * recommendations.length)];
 
   // Add it to the page.
-  document.getElementById("kdrama-cover").src = recommendation.cover;
+  document.getElementById("kdrama-cover").src       = recommendation.cover;
   document.getElementById("kdrama-title").innerText = recommendation.title;
-  document.getElementById("kdrama-title").href = recommendation.link;
+  document.getElementById("kdrama-title").href      = recommendation.link;
+}
+
+async function sayHello(){
+    const response = await fetch("/data");
+    const reply    = await response.text();
+    document.getElementById("greeting").innerHTML = reply;
 }
