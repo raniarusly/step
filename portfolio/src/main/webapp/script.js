@@ -80,8 +80,10 @@ function getKdramaRecommendation() {
   document.getElementById("kdrama-title").href = recommendation.link;
 }
 
-async function sayHello(){
+async function getComments(){
     const response = await fetch("/data");
-    const reply = await response.text();
-    document.getElementById("greeting").innerHTML = reply;
+    const comments = await response.json();
+
+    console.log(comments);
+    document.getElementById("comments").innerHTML = comments;
 }
