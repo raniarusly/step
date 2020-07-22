@@ -33,8 +33,7 @@ public class DataServlet extends HttpServlet {
     comments.add("looking good!");
     comments.add("keep up the work");
 
-    Gson gson = new Gson();
-    String json = gson.toJson(comments);
+    String json = new Gson().toJson(comments);
 
     response.setContentType("application/json;");
     response.getWriter().println(json);
