@@ -26,11 +26,9 @@ import com.google.gson.Gson;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private List<String> comments;
-
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    comments = new ArrayList<>();
+    List<String> comments = new ArrayList<>();
     comments.add("9 weeks to go");
     comments.add("looking good!");
     comments.add("keep up the work");
