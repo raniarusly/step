@@ -14,9 +14,6 @@
 
 package com.google.sps.servlets;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +28,7 @@ import com.google.gson.Gson;
 public class DataServlet extends HttpServlet {
 
   private List<String> comments = new ArrayList<>();
-  
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String json = new Gson().toJson(comments);
