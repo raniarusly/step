@@ -83,7 +83,6 @@ function getKdramaRecommendation() {
 function getComments(){
   fetch("/data").then(result => result.json()).then((comments) => {
     const section = document.getElementById("comments");
-    console.log("try");
     comments.forEach((comment) => {
       section.appendChild(createElement(comment, "li"));
     });
