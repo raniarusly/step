@@ -27,7 +27,7 @@
 
         <!-- form to input comments-->
         <br>
-        <form action="/data" method="POST">
+        <form name="comment-section" action="/data" method="POST" onsubmit="return validateForm()">
           <p>What do you think about my website?</p>
           <input type="text" name="comment-input">
           <br><br>

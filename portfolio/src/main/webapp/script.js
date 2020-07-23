@@ -97,3 +97,11 @@ function createElement(text, type) {
   element.innerText = text;
   return element;
 }
+
+function validateForm() {
+  var comment = document.forms["comment-section"]["comment-input"].value;
+  if (comment == "") {
+    alert("Comment cannot be empty :)");
+    return false;
+  }
+}
