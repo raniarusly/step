@@ -79,3 +79,11 @@ function getKdramaRecommendation() {
   document.getElementById("kdrama-title").innerText = recommendation.title;
   document.getElementById("kdrama-title").href = recommendation.link;
 }
+
+async function getComments(){
+    const response = await fetch("/data");
+    const comments = await response.json();
+
+    console.log(comments);
+    document.getElementById("comments").innerHTML = comments;
+}
