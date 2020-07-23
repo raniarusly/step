@@ -80,10 +80,20 @@ function getKdramaRecommendation() {
   document.getElementById("kdrama-title").href = recommendation.link;
 }
 
-async function getComments(){
-    const response = await fetch("/data");
-    const comments = await response.json();
+function getComments(){
+  fetch("/data").then(result => result.json()).then((comments) => {
+    const section = document.getElementById("comments");
+    console.log("try");
+    comments.forEach((comment) => {
+      section.appendChild(createElement(comment, "li"));
+    });
+    section.appendChild(createElement("Thank you for the feedback! :D", "p"));
+  });
+}
 
-    console.log(comments);
-    document.getElementById("comments").innerHTML = comments;
+/** Creates a certain type element containing text. */
+function createElement(text, type) {
+  const element = document.createElement(type);
+  element.innerText = text;
+  return element;
 }
