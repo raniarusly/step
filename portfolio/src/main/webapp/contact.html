@@ -24,6 +24,18 @@
 
       <div class="section">
         <h1>Comments</h1>
+
+        <!-- form to input comments-->
+        <br>
+        <form name="comment-section" action="/data" method="POST" onsubmit="return validateForm()">
+          <p>What do you think about my website?</p>
+          <input type="text" name="comment-input">
+          <br><br>
+          <input type="submit" />
+        </form>
+
+        <!-- button to show comments-->
+        <br><br>
         <button onclick=getComments()>apa kabar?</button>
         <div id="comments"></div>
       </div>
