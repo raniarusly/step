@@ -32,15 +32,21 @@ import com.google.gson.Gson;
 /** Servlet that sends and returns comments.*/
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  
+  private DatastoreService datastore;
+
+  public void init(){
+    datastore = DatastoreServiceFactory.getDatastoreService();
+  }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
-    PreparedQuery results = DatastoreServiceFactory.getDatastoreService().prepare(query);
+    PreparedQuery results = datastore.prepare(query);
 
     List<String> comments = new ArrayList<>();
-    for(Entity entity : results.asIterable()){
-      comments.add((String)entity.getProperty("content"));
+    for (Entity entity : results.asIterable()) {
+      comments.add((String) entity.getProperty("content"));
     }
 
     String json = new Gson().toJson(comments);
@@ -56,8 +62,7 @@ public class DataServlet extends HttpServlet {
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("content", content);
     commentEntity.setProperty("timestamp", timestamp);
-
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    
     datastore.put(commentEntity);
     response.sendRedirect("/contact.html");
   }
