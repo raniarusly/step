@@ -81,7 +81,10 @@ function getKdramaRecommendation() {
 }
 
 function getComments(){
-  fetch("/data").then(result => result.json()).then((comments) => {
+  const input = document.getElementById("limit")
+  const limit = input.options[input.selectedIndex].value;
+  var query = "/data?limit="
+  fetch(query.concat(limit)).then(result => result.json()).then((comments) => {
     const section = document.getElementById("comments");
     section.innerHTML = "";
     comments.forEach((comment) => {
