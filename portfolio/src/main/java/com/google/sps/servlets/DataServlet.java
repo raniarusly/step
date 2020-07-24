@@ -47,10 +47,10 @@ public class DataServlet extends HttpServlet {
 
     int limit = Integer.parseInt(request.getParameter("limit"));
     Iterable<Entity> results;
-    if(limit != - 1){
+    if (limit != - 1) {
       results = prepared.asIterable(FetchOptions.Builder.withLimit(limit));
     }
-    else{
+    else {
       results = prepared.asIterable();
     }
 
