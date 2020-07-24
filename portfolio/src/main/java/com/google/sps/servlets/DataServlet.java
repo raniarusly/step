@@ -14,6 +14,12 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +32,23 @@ import com.google.gson.Gson;
 /** Servlet that sends and returns comments.*/
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  
+  private DatastoreService datastore;
 
-  private List<String> comments = new ArrayList<>();
+  public void init(){
+    datastore = DatastoreServiceFactory.getDatastoreService();
+  }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+    PreparedQuery results = datastore.prepare(query);
+
+    List<String> comments = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+      comments.add((String) entity.getProperty("content"));
+    }
+
     String json = new Gson().toJson(comments);
     response.setContentType("application/json;");
     response.getWriter().println(json);
@@ -38,7 +56,14 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    comments.add(request.getParameter("comment-input"));
+    String content = request.getParameter("comment-input");
+    long timestamp = System.currentTimeMillis();
+
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("content", content);
+    commentEntity.setProperty("timestamp", timestamp);
+    
+    datastore.put(commentEntity);
     response.sendRedirect("/contact.html");
   }
 }
