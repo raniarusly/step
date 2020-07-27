@@ -103,21 +103,23 @@ function createParagraphElement(text) {
 
 /** Creates an element that represents a comment, including its delete button. */
 function createCommentElement(comment) {
-  const commentEl = document.createElement("li");
-  commentEl.className = "comment";
+  const commentEl = document.createElement("div");
+  commentEl.className = "w3-cell-row comment-card";
 
-  const contentEl = document.createElement("span");
+  const contentEl = document.createElement("div");
+  contentEl.className = "w3-cell comment-content"
   contentEl.innerText = comment.content;
 
-  const deleteButtonElement = document.createElement("button");
-  deleteButtonElement.innerText = "Delete";
-  deleteButtonElement.addEventListener("click", () => {
+  const deleteButtonEl = document.createElement("button");
+  deleteButtonEl.className = "w3-cell"
+  deleteButtonEl.innerText = "Delete";
+  deleteButtonEl.addEventListener("click", () => {
     deleteComment(comment);
     commentEl.remove();
   });
 
   commentEl.appendChild(contentEl);
-  commentEl.appendChild(deleteButtonElement);
+  commentEl.appendChild(deleteButtonEl);
   return commentEl;
 }
 
