@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
+import com.google.sps.data.Comment;
 
 /** Servlet that sends and returns comments.*/
 @WebServlet("/data")
@@ -54,9 +55,12 @@ public class DataServlet extends HttpServlet {
       results = prepared.asIterable();
     }
 
-    List<String> comments = new ArrayList<>();
+    List<Comment> comments = new ArrayList<>();
     for (Entity entity : results) {
-      comments.add((String) entity.getProperty("content"));
+      long id = entity.getKey().getId();
+      String content = (String) content;
+      long timestamp = (long) timestamp;
+      comments.add(new Comment(id, content, timestamp));
     }
 
     String json = new Gson().toJson(comments);
