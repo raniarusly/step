@@ -81,9 +81,9 @@ function getKdramaRecommendation() {
 }
 
 function getComments(){
-  const input = document.getElementById("limit")
+  const input = document.getElementById("limit");
   const limit = input.options[input.selectedIndex].value;
-  var query = "/data?limit="
+  var query = "/data?limit=";
   fetch(query.concat(limit)).then(result => result.json()).then((comments) => {
     const section = document.getElementById("comments");
     section.innerHTML = "";
@@ -106,5 +106,22 @@ function validateForm() {
   if (comment == "") {
     alert("Comment cannot be empty :)");
     return false;
+  }
+}
+
+async function checkLogin(){
+  const result = await fetch("/login");
+  const details = await result.json();
+
+  const formEl = document.getElementById("comment-form");
+  const loginEl = document.getElementById("login");
+  if (details.loginStatus) {
+    loginEl.style.display = "none";
+    formEl.style.display = "block";
+  }
+  else {
+    loginEl.style.display = "block";
+    formEl.style.display = "none";
+    document.getElementById("login-link").href = details.loginUrl;
   }
 }
