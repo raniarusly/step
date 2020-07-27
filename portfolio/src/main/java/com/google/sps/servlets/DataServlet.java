@@ -21,6 +21,8 @@ import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.gson.Gson;
+import com.google.sps.data.Comment;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.google.gson.Gson;
 
 /** Servlet that sends and returns comments.*/
 @WebServlet("/data")
@@ -54,9 +55,12 @@ public class DataServlet extends HttpServlet {
       results = prepared.asIterable();
     }
 
-    List<String> comments = new ArrayList<>();
+    List<Comment> comments = new ArrayList<>();
     for (Entity entity : results) {
-      comments.add((String) entity.getProperty("content"));
+      long id = entity.getKey().getId();
+      String content = (String) entity.getProperty("content");
+      long timestamp = (long) entity.getProperty("timestamp");
+      comments.add(new Comment(id, content, timestamp));
     }
 
     String json = new Gson().toJson(comments);

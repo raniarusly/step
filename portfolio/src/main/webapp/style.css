@@ -82,6 +82,18 @@ p {
   padding: 50px 30px;
 }
 
+.comment-card {
+  background-color: whitesmoke;
+  width: 400px;
+  height: 50px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.comment-content {
+  width: 300px;
+}
+
 /* font */
 /* latin-ext */
 @font-face {
