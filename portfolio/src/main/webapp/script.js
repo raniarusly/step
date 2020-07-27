@@ -88,17 +88,44 @@ function getComments(){
     const section = document.getElementById("comments");
     section.innerHTML = "";
     comments.forEach((comment) => {
-      section.appendChild(createElement(comment, "li"));
+      section.appendChild(createCommentElement(comment));
     });
-    section.appendChild(createElement("Thank you for the feedback! :D", "p"));
+    section.appendChild(createParagraphElement("Thank you for the feedback! :D"));
   });
 }
 
-/** Creates a certain type element containing text. */
-function createElement(text, type) {
-  const element = document.createElement(type);
+/** Creates a paragraph element containing text. */
+function createParagraphElement(text) {
+  const element = document.createElement("p");
   element.innerText = text;
   return element;
+}
+
+/** Creates an element that represents a comment, including its delete button. */
+function createCommentElement(comment) {
+  const commentEl = document.createElement("li");
+  commentEl.className = "comment";
+
+  const contentEl = document.createElement("span");
+  contentEl.innerText = comment.content;
+
+  const deleteButtonElement = document.createElement("button");
+  deleteButtonElement.innerText = "Delete";
+  deleteButtonElement.addEventListener("click", () => {
+    deleteComment(comment);
+    commentEl.remove();
+  });
+
+  commentEl.appendChild(contentEl);
+  commentEl.appendChild(deleteButtonElement);
+  return commentEl;
+}
+
+/** Tells the server to delete the comment. */
+function deleteComment(comment) {
+  const params = new URLSearchParams();
+  params.append('id', comment.id);
+  fetch('/delete-data', {method: 'POST', body: params});
 }
 
 function validateForm() {

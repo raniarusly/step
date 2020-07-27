@@ -15,13 +15,13 @@
 package com.google.sps.data;
 
 /** The class represents a comment. */
-public final class Task {
+public final class Comment {
 
   private final long id;
   private final String content;
   private final long timestamp;
 
-  public Task(long id, String content, long timestamp) {
+  public Comment(long id, String content, long timestamp) {
     this.id = id;
     this.content = content;
     this.timestamp = timestamp;
