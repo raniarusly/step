@@ -30,9 +30,9 @@ public class LoginServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     UserService userService = UserServiceFactory.getUserService();
-    boolean loginStatus = userService.isUserLoggedIn();
-    String loginUrl = userService.createLoginURL("contact.html");
-    LoginDetails loginDetails = new LoginDetails(loginStatus, loginUrl);
+    boolean isUserLoggedIn = userService.isUserLoggedIn();
+    String loginUrl = userService.createLoginURL("/contact.html");
+    LoginDetails loginDetails = new LoginDetails(isUserLoggedIn, loginUrl);
 
     response.setContentType("application/json");
     response.getWriter().println(new Gson().toJson(loginDetails));

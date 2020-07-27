@@ -103,23 +103,23 @@ function createParagraphElement(text) {
 
 /** Creates an element that represents a comment, including its delete button. */
 function createCommentElement(comment) {
-  const commentEl = document.createElement("div");
-  commentEl.className = "w3-cell-row comment-card";
+  const commentElement = document.createElement("div");
+  commentElement.className = "w3-cell-row comment-card";
 
-  const contentEl = document.createElement("div");
-  contentEl.className = "w3-cell comment-content"
-  contentEl.innerText = comment.content;
+  const contentElement = document.createElement("div");
+  contentElement.className = "w3-cell comment-content"
+  contentElement.innerText = comment.content;
 
-  const deleteButtonEl = document.createElement("button");
-  deleteButtonEl.className = "w3-cell"
-  deleteButtonEl.innerText = "Delete";
-  deleteButtonEl.addEventListener("click", () => {
+  const deleteButtonElement = document.createElement("button");
+  deleteButtonElement.className = "w3-cell"
+  deleteButtonElement.innerText = "Delete";
+  deleteButtonElement.addEventListener("click", () => {
     deleteComment(comment);
-    commentEl.remove();
+    commentElement.remove();
   });
 
-  commentEl.appendChild(contentEl);
-  commentEl.appendChild(deleteButtonEl);
+  commentElement.appendChild(contentEl);
+  commentElement.appendChild(deleteButtonEl);
   return commentEl;
 }
 
@@ -142,15 +142,15 @@ async function checkLogin(){
   const result = await fetch("/login");
   const details = await result.json();
 
-  const formEl = document.getElementById("comment-form");
-  const loginEl = document.getElementById("login");
-  if (details.loginStatus) {
-    loginEl.style.display = "none";
-    formEl.style.display = "block";
+  const formElement = document.getElementById("comment-form");
+  const loginElement = document.getElementById("login");
+  if (details.isUserLoggedIn) {
+    loginElement.style.display = "none";
+    formElement.style.display = "block";
   }
   else {
-    loginEl.style.display = "block";
-    formEl.style.display = "none";
+    loginElement.style.display = "block";
+    formElement.style.display = "none";
     document.getElementById("login-link").href = details.loginUrl;
   }
 }

@@ -14,14 +14,14 @@
 
 package com.google.sps.data;
 
-/** An item on a todo list. */
+/** A class representing the user login status and url to login. */
 public final class LoginDetails {
 
-  private final boolean status;
-  private final String url;
+  private final boolean isUserLoggedIn;
+  private final String loginUrl;
 
-  public LoginDetails(boolean status, String url) {
-    this.status = status;
-    this.url = url;
+  public LoginDetails(boolean isUserLoggedIn, String loginUrl) {
+    this.isUserLoggedIn = isUserLoggedIn;
+    this.loginUrl = loginUrl;
   }
 }
