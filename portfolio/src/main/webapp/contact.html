@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="checkLogin()">
     <div id="content">
 
       <!-- navigation bar -->
@@ -27,25 +27,32 @@
 
         <!-- form to input comments-->
         <br>
-        <form name="comment-section" action="/data" method="POST" onsubmit="return validateForm()">
-          <p>What do you think about my website?</p>
-          <input type="text" name="comment-input">
-          <br><br>
-          <input type="submit" />
-        </form>
+        <div id="login">
+          <h2>Oops! Restricted access</h2>
+          <p>You need to log in with your Google account to comment and view comments.</p>
+          <p>Please log in <a id="login-link">here</a>.</p>
+        </div>
+        <div id="comment-form">
+          <form name="comment-section" action="/data" method="POST" onsubmit="return validateForm()">
+            <p>What do you think about my website?</p>
+            <input type="text" name="comment-input">
+            <br><br>
+            <input type="submit" />
+          </form>
 
-        <!-- button to show comments-->
-        <br><br>
-        <label for="limit">Number of comments to show:</label>
-        <select name="limit" id="limit">
+          <!-- button to show comments-->
+          <br><br>
+          <label for="limit">Number of comments to show:</label>
+          <select name="limit" id="limit">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="-1">Show All</option>
-        </select>
-        <button onclick=getComments()>apa kabar?</button>
-        <div id="comments"></div>
+          </select>
+          <button onclick=getComments()>apa kabar?</button>
+          <div id="comments"></div>
+        </div>
       </div>
     </div>    
   </body>
