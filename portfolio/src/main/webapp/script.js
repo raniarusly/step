@@ -160,5 +160,5 @@ async function checkLogin(){
 function initMap() {
   const map = new google.maps.Map(
       document.getElementById("map"),
-      {center: {lat: -6.175540, lng: 106.8274392}, zoom: 32});
+      {center: {lat: -6.175540, lng: 106.8274392}, zoom: 15});
 }
