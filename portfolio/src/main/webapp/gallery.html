@@ -2,10 +2,12 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>My Portfolio - Interest</title>
+    <title>My Portfolio - Experience</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="style.css">
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuk539i0M-Dm_8O_GlJowtpnWYN6Taqxg&callback=initMap"></script>
+    <script src="nightVersion.js"></script>
     <script src="script.js"></script>
   </head>
   <body>
@@ -21,21 +23,7 @@
         <a class="w3-bar-item w3-right"><b>Rania Rusly</b></a>
       </nav>
 
-      <!-- K-drama -->
-      <div class="w3-cell-row section">
-        <h1>K-drama</h1>
-        <p>Hi! I watch lots and lots of K-drama, from romance to thriller</p>
-        <p>Since I have wasted countless hours on it, I would be happy to provide recommendations.</p>
-        <p>If you are feeling bored and want to try a K-drama, I will easily recommend one for you!</p>
-        <div class="w3-center">
-          <button onclick="getKdramaRecommendation()">Recommend me a K-drama</button>
-          <br>
-          <h2><a id="kdrama-title"></a></h2>
-          <br>
-          <img id="kdrama-cover" width="400px">
-        </div>
-      </div>
-
+      <div id="map"></div>
     </div>    
   </body>
 </html>

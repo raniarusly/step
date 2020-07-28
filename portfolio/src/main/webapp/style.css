@@ -60,6 +60,11 @@ p {
   margin-top: 20px;
 }
 
+#map {
+  height: 500px;
+  width: 500px;
+}
+
 .middle {
   vertical-align: middle;
 }
@@ -104,6 +109,10 @@ p {
 
 .delete-button {
   margin: 10px;  
+}
+
+.comment-textarea{
+  width: 500px;
 }
 
 /* font */
