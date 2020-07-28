@@ -85,7 +85,6 @@ function getComments(){
   const limit = input.options[input.selectedIndex].value;
   var query = "/data?limit=";
   fetch(query.concat(limit)).then(result => result.json()).then((comments) => {
-    console.log(comments);
     const section = document.getElementById("comments");
     section.innerHTML = "";
     comments.forEach((comment) => {
