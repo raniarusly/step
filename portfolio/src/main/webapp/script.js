@@ -107,20 +107,21 @@ function createCommentElement(comment) {
   commentElement.className = "w3-cell-row comment-card";
 
   const contentElement = document.createElement("div");
-  contentElement.className = "w3-cell comment-content"
-  contentElement.innerText = comment.content;
+  contentElement.className = "w3-cell comment-content";
+  contentElement.innerHTML = "<h4>" + comment.userEmail + "</h4>";
+  contentElement.innerHTML += "<p>" + comment.content + "</p>";
 
   const deleteButtonElement = document.createElement("button");
-  deleteButtonElement.className = "w3-cell"
+  deleteButtonElement.className = "w3-cell delete-button"
   deleteButtonElement.innerText = "Delete";
   deleteButtonElement.addEventListener("click", () => {
     deleteComment(comment);
     commentElement.remove();
   });
 
-  commentElement.appendChild(contentEl);
-  commentElement.appendChild(deleteButtonEl);
-  return commentEl;
+  commentElement.appendChild(contentElement);
+  commentElement.appendChild(deleteButtonElement);
+  return commentElement;
 }
 
 /** Tells the server to delete the comment. */
