@@ -158,12 +158,19 @@ async function checkLogin(){
 
 /** Creates a map and adds it to the page. */
 function initMap() {
-  const nightMapStyle = new google.maps.StyledMapType(nightVersion, {name: 'Night'});
+  const jakartaCoordinate = {lat: -6.175540, lng: 106.82743};
+
   const map = new google.maps.Map( document.getElementById("map"), {
-    center: {lat: -6.175540, lng: 106.8274392}, 
+    center: jakartaCoordinate,
     zoom: 15,
     mapTypeControlOptions: { mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'night_map'] }
   });
+
+  /** Set up map in night mode */
+  const nightMapStyle = new google.maps.StyledMapType(nightVersion, {name: 'Night'});
   map.mapTypes.set('night_map', nightMapStyle);
   map.setMapTypeId('night_map');
+  
+  /** add marker on map */
+  const marker = new google.maps.Marker({position: jakartaCoordinate, map: map});
 }
