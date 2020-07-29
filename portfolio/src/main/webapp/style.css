@@ -2,6 +2,7 @@ body {
   font-family: 'Sora', Sans-serif;
   display: flex;
   flex-direction: column;
+  font-size: 18px;
 }
 
 h1 {
@@ -20,19 +21,29 @@ h2 {
 h3 {
   font-family: 'Sora', Sans-serif;
   font-weight:600;
-  font-size: 20px;
+  font-size: 22px;
   line-height: 80%;
+  text-decoration: none!important;
 }
 
 h4 {
   font-family: 'Sora', Sans-serif;
   font-weight: 550;
-  font-size: 17px;
+  font-size: 20px;
 }
 
 p {
   font-weight: 500;
-  font-size: 15px;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  color: white;
+  background-color: black;
+  width: inherit;
+  margin: inherit;
+  vertical-align: middle;
 }
 
 #home {
@@ -64,6 +75,25 @@ p {
   height: 500px;
   width: 500px;
   margin: auto;
+}
+
+.bar-item{
+  user-select: none;
+  border: none;
+  display: inline-block;
+  padding: 8px 16px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background-color: inherit;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.name-bar-item {
+  font-weight: bold;
+  float: right;
 }
 
 .center {
