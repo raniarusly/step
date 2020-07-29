@@ -170,7 +170,11 @@ function initMap() {
       const nightMapStyle = new google.maps.StyledMapType(nightVersion, {name: 'Night'});
       map.mapTypes.set('night_map', nightMapStyle);
 
-      cities.forEach(city => createMarker(city, map));
+      var markers = cities.map((city) => {
+        return createMarker(city, map);
+      });
+      var markerCluster = new MarkerClusterer(map, markers,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
   });
 }
 
@@ -191,4 +195,5 @@ function createMarker(city, map){
     map.setZoom(12);
     map.setCenter(marker.getPosition());
   });
+  return marker;
 }
