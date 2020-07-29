@@ -63,25 +63,45 @@ p {
 #map {
   height: 500px;
   width: 500px;
+  margin: auto;
 }
 
-.middle {
+.center {
   vertical-align: middle;
+  text-align: center;
+  margin: auto;
 }
 
-.work-container {
+.company-brief {
+  text-align: center;
+  display: table-cell;
+}
+
+.job-container {
+  display: table;
+  width: 100%;
   height:300px;
-  padding-right: 32px;
+  padding: 20px;
 }
 
-.img-container {
+.company-logo {
+  display: table-cell;
+  margin: auto;
   vertical-align: middle;
-  width:300px;
+  width: 250px;
+}
+
+.job-description {
+  display: table-cell;
+  text-align: left;
+  vertical-align: middle;
+  padding: 15px;
 }
 
 .img-circle {
   border-radius: 50%;
   width: 250px;
+  padding: 15px;
 }
 
 .img-circle-small {
@@ -100,15 +120,19 @@ p {
   height: 80px;
   padding: 10px;
   margin: 10px;
+  display: table;
+  opacity: 0.7;
 }
 
 .comment-content {
   vertical-align: middle;
   width: 400px;
+  display: table-cell;
 }
 
 .delete-button {
-  margin: 10px;  
+  margin: 10px;
+  display: table-cell;
 }
 
 .comment-textarea{

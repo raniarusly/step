@@ -104,15 +104,15 @@ function createParagraphElement(text) {
 /* Creates an element that represents a comment, including its delete button. */
 function createCommentElement(comment) {
   const commentElement = document.createElement("div");
-  commentElement.className = "w3-cell-row comment-card";
+  commentElement.className = "comment-card";
 
   const contentElement = document.createElement("div");
-  contentElement.className = "w3-cell comment-content";
+  contentElement.className = "comment-content";
   contentElement.innerHTML = "<h4>" + comment.userEmail + "</h4>";
   contentElement.innerHTML += "<p>" + comment.content + "</p>";
 
   const deleteButtonElement = document.createElement("button");
-  deleteButtonElement.className = "w3-cell delete-button"
+  deleteButtonElement.className = "delete-button"
   deleteButtonElement.innerText = "Delete";
   deleteButtonElement.addEventListener("click", () => {
     deleteComment(comment);
@@ -158,33 +158,37 @@ async function checkLogin(){
 
 /* Creates a map and adds it to the page. */
 function initMap() {
-  const jakarta = {lat: -6.175540, lng: 106.82743};
+  fetch("/city-data").then(result => result.json()).then((cities) => {
+      console.log(cities);
+      const map = new google.maps.Map( document.getElementById("map"), {
+        center: {lat: -6.175540, lng: 106.82743},
+        zoom: 5,
+        mapTypeControlOptions: { mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'night_map'] }
+      });
 
-  const map = new google.maps.Map( document.getElementById("map"), {
-    center: jakarta,
-    zoom: 15,
-    mapTypeControlOptions: { mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'night_map'] }
+      /** Set up map in night mode */
+      const nightMapStyle = new google.maps.StyledMapType(nightVersion, {name: 'Night'});
+      map.mapTypes.set('night_map', nightMapStyle);
+
+      cities.forEach(city => createMarker(city, map));
   });
+}
 
-  /* Set up map in night mode */
-  const nightMapStyle = new google.maps.StyledMapType(nightVersion, {name: 'Night'});
-  map.mapTypes.set('night_map', nightMapStyle);
-  map.setMapTypeId('night_map');
-
+function createMarker(city, map){
   const infoWindow = new google.maps.InfoWindow({
-    content: "<h2>2000-2020<h2><h3>born and raised</h3>"
+    content: "<h3>" + city.dateVisited + "</h3>"
   });
 
   /* add marker on map */
   const marker = new google.maps.Marker({
-    position: jakarta, 
+    position: {lat: city.lat, lng: city.lng}, 
     map: map, 
-    title: "Jakarta"
+    title: city.name
   });
 
-  marker.addListener('click', function() {
+  marker.addListener("click", function() {
     infoWindow.open(map, marker);
-    map.setZoom(20);
+    map.setZoom(12);
     map.setCenter(marker.getPosition());
   });
 }
