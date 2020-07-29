@@ -94,14 +94,14 @@ function getComments(){
   });
 }
 
-/** Creates a paragraph element containing text. */
+/* Creates a paragraph element containing text. */
 function createParagraphElement(text) {
   const element = document.createElement("p");
   element.innerText = text;
   return element;
 }
 
-/** Creates an element that represents a comment, including its delete button. */
+/* Creates an element that represents a comment, including its delete button. */
 function createCommentElement(comment) {
   const commentElement = document.createElement("div");
   commentElement.className = "w3-cell-row comment-card";
@@ -124,7 +124,7 @@ function createCommentElement(comment) {
   return commentElement;
 }
 
-/** Tells the server to delete the comment. */
+/* Tells the server to delete the comment. */
 function deleteComment(comment) {
   const params = new URLSearchParams();
   params.append('id', comment.id);
@@ -156,14 +156,35 @@ async function checkLogin(){
   }
 }
 
-/** Creates a map and adds it to the page. */
+/* Creates a map and adds it to the page. */
 function initMap() {
-  const nightMapStyle = new google.maps.StyledMapType(nightVersion, {name: 'Night'});
+  const jakarta = {lat: -6.175540, lng: 106.82743};
+
   const map = new google.maps.Map( document.getElementById("map"), {
-    center: {lat: -6.175540, lng: 106.8274392}, 
+    center: jakarta,
     zoom: 15,
     mapTypeControlOptions: { mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'night_map'] }
   });
+
+  /* Set up map in night mode */
+  const nightMapStyle = new google.maps.StyledMapType(nightVersion, {name: 'Night'});
   map.mapTypes.set('night_map', nightMapStyle);
   map.setMapTypeId('night_map');
+
+  const infoWindow = new google.maps.InfoWindow({
+    content: "<h2>2000-2020<h2><h3>born and raised</h3>"
+  });
+
+  /* add marker on map */
+  const marker = new google.maps.Marker({
+    position: jakarta, 
+    map: map, 
+    title: "Jakarta"
+  });
+
+  marker.addListener('click', function() {
+    infoWindow.open(map, marker);
+    map.setZoom(20);
+    map.setCenter(marker.getPosition());
+  });
 }
