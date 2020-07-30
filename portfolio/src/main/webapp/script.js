@@ -156,33 +156,61 @@ async function checkLogin(){
   }
 }
 
-/* Creates a map and adds it to the page. */
-function initMap() {
-  const jakarta = {lat: -6.175540, lng: 106.82743};
-  const zoom_scale = 5;
-  fetch("/city-data").then(result => result.json()).then((cities) => {
-      console.log(cities);
-      const map = new google.maps.Map( document.getElementById("map"), {
-        center: jakarta,
-        zoom: zoom_scale,
-        mapTypeControlOptions: { mapTypeIds: ["roadmap", "satellite", "hybrid", "terrain", "night_map"] }
-      });
+function addUserLocation(){
+    // Try HTML5 geolocation.
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      const params = new URLSearchParams();
+      params.append('lat', position.coords.latitude);
+      params.append('lng', position.coords.longitude);
+      fetch('/user-location-data', {method: 'POST', body: params});
+    }, function() {
+        console.log("fail-1");
+    //   handleLocationError(map, true, map.getCenter());
+    });
+  } else {
+      console.log("fail-2");
+    // Browser doesn't support Geolocation
+    // handleLocationError(map, false, infoWindow, map.getCenter());
+  }
+}
 
-      /** Set up map in night mode */
-      const nightMapStyle = new google.maps.StyledMapType(nightVersion, {name: "Night"});
-      map.mapTypes.set("night_map", nightMapStyle);
+function initMap() {
+  initTravelMap();
+  initUserMap();
+}
+
+const JAKARTA = {lat: -6.175540, lng: 106.82743};
+const ZOOM_SCALE = 5;
+
+function initTravelMap() {  
+  fetch("/city-data").then(result => result.json()).then((cities) => {
+      const map = createMap("travel-map");
 
       var markers = cities.map((city) => {
-        return createMarker(city, map);
+        return createCityMarker(city, map);
       });
       var markerCluster = new MarkerClusterer(map, markers,
             {imagePath: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"});
   });
 }
 
-function createMarker(city, map){
+function createMap(mapId) {
+  const map = new google.maps.Map( document.getElementById(mapId), {
+    center: JAKARTA,
+    zoom: ZOOM_SCALE,
+    mapTypeControlOptions: { mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'night_map'] }
+  });
+
+  /** Set up map in night mode */
+  const nightMapStyle = new google.maps.StyledMapType(nightVersion, {name: 'Night'});
+  map.mapTypes.set('night_map', nightMapStyle);
+  return map;
+}
+
+function createCityMarker(city, map){
   const infoWindow = new google.maps.InfoWindow({
-    content: "<h3>" + city.dateVisited + "</h3>"
+    content: "<h3>" + city.name + "</h3><h4>"+ city.dateVisited + "</h4>"
   });
 
   /* add marker on map */
@@ -199,3 +227,37 @@ function createMarker(city, map){
   });
   return marker;
 }
+
+function initUserMap() {  
+  fetch("/user-location-data").then(result => result.json()).then((locations) => {
+    console.log(locations);
+    const map = createMap("user-map");
+    var markers = locations.map((location) => {
+      return createLocationMarker(location, map);
+    });
+    var markerCluster = new MarkerClusterer(map, markers,
+          {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+  });
+}
+
+function createLocationMarker(location, map){
+  /* add marker on map */
+  const marker = new google.maps.Marker({
+    position: {lat: location.lat, lng: location.lng}, 
+    map: map, 
+  });
+
+  marker.addListener("click", function() {
+    map.setZoom(12);
+    map.setCenter(marker.getPosition());
+  });
+  return marker;
+}
+
+// function handleLocationError(map, browserHasGeolocation, infoWindow, position) {
+//   infoWindow.setPosition(position);
+//   infoWindow.setContent(browserHasGeolocation ?
+//                         'Error: The Geolocation service failed.' :
+//                         'Error: Your browser doesn\'t support geolocation.');
+//   infoWindow.open(map);
+// }

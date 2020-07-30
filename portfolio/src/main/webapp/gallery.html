@@ -12,7 +12,7 @@
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="addUserLocation()">
     <div id="content">
 
       <!-- navigation bar -->
@@ -30,7 +30,9 @@
         <p>Through the years, I like to take pictures of cities that I have been</p>
         <p>To look at the photo galleries, navigate through the map and select a pin!</p>
         <br><br>
-        <div id="map"></div>
+        <div id="user-map" class="map"></div>
+        <br><br>
+        <div id="travel-map" class="map"></div>
       </div>
 
       <div class="footer">

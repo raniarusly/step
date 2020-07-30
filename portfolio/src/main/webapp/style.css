@@ -71,7 +71,7 @@ nav {
   margin-top: 20px;
 }
 
-#map {
+.map {
   height: 500px;
   width: 500px;
   margin: auto;
