@@ -18,26 +18,26 @@
 function addRandomFact() {
   const facts =
       [
-          'I love K-pop, I have been to over 10 concerts', 
-          'I...hate snakes, please get snake pictures away from me', 
-          'I spent countless hours watching K-dramas, especially in this quarantinae', 
-          'people I know in Google are nice!',
-          'I don\'t know much about front-end, mostly because I imagine that I have to design stuffs', 
-          'I don\'t like working from home', 
-          'Hate to miss the Google office experience :(, hope I can visit the office in the future',
-          'I am the oldest of 4',
-          'I am looking for more interests, please tell me suggestions of things to try out',
-          'I love trying new restaurants and new areas',
-          'I am an extrovert, in fact at 83% (but I can get awkward with people sometimes)',
-          'my MBTI is ESTJ, I would like to know yours too!',
-          'my little sister designed the background for this website'
+          "I love K-pop, I have been to over 10 concerts", 
+          "I...hate snakes, please get snake pictures away from me", 
+          "I spent countless hours watching K-dramas, especially in this quarantinae", 
+          "people I know in Google are nice!",
+          "I don\"t know much about front-end, mostly because I imagine that I have to design stuffs", 
+          "I don\"t like working from home", 
+          "Hate to miss the Google office experience :(, hope I can visit the office in the future",
+          "I am the oldest of 4",
+          "I am looking for more interests, please tell me suggestions of things to try out",
+          "I love trying new restaurants and new areas",
+          "I am an extrovert, in fact at 83% (but I can get awkward with people sometimes)",
+          "my MBTI is ESTJ, I would like to know yours too!",
+          "my little sister designed the background for this website"
       ];
 
   // Pick a random fact.
   const fact = facts[Math.floor(Math.random() * facts.length)];
 
   // Add it to the page.
-  const factContainer = document.getElementById('fact-container');
+  const factContainer = document.getElementById("fact-container");
   factContainer.innerText = fact;
 }
 
@@ -104,15 +104,15 @@ function createParagraphElement(text) {
 /* Creates an element that represents a comment, including its delete button. */
 function createCommentElement(comment) {
   const commentElement = document.createElement("div");
-  commentElement.className = "w3-cell-row comment-card";
+  commentElement.className = "comment-card";
 
   const contentElement = document.createElement("div");
-  contentElement.className = "w3-cell comment-content";
+  contentElement.className = "comment-content";
   contentElement.innerHTML = "<h4>" + comment.userEmail + "</h4>";
   contentElement.innerHTML += "<p>" + comment.content + "</p>";
 
   const deleteButtonElement = document.createElement("button");
-  deleteButtonElement.className = "w3-cell delete-button"
+  deleteButtonElement.className = "delete-button"
   deleteButtonElement.innerText = "Delete";
   deleteButtonElement.addEventListener("click", () => {
     deleteComment(comment);
@@ -127,8 +127,8 @@ function createCommentElement(comment) {
 /* Tells the server to delete the comment. */
 function deleteComment(comment) {
   const params = new URLSearchParams();
-  params.append('id', comment.id);
-  fetch('/delete-data', {method: 'POST', body: params});
+  params.append("id", comment.id);
+  fetch("/delete-data", {method: "POST", body: params});
 }
 
 function validateForm() {
@@ -159,32 +159,43 @@ async function checkLogin(){
 /* Creates a map and adds it to the page. */
 function initMap() {
   const jakarta = {lat: -6.175540, lng: 106.82743};
+  const zoom_scale = 5;
+  fetch("/city-data").then(result => result.json()).then((cities) => {
+      console.log(cities);
+      const map = new google.maps.Map( document.getElementById("map"), {
+        center: jakarta,
+        zoom: zoom_scale,
+        mapTypeControlOptions: { mapTypeIds: ["roadmap", "satellite", "hybrid", "terrain", "night_map"] }
+      });
 
-  const map = new google.maps.Map( document.getElementById("map"), {
-    center: jakarta,
-    zoom: 15,
-    mapTypeControlOptions: { mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'night_map'] }
+      /** Set up map in night mode */
+      const nightMapStyle = new google.maps.StyledMapType(nightVersion, {name: "Night"});
+      map.mapTypes.set("night_map", nightMapStyle);
+
+      var markers = cities.map((city) => {
+        return createMarker(city, map);
+      });
+      var markerCluster = new MarkerClusterer(map, markers,
+            {imagePath: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"});
   });
+}
 
-  /* Set up map in night mode */
-  const nightMapStyle = new google.maps.StyledMapType(nightVersion, {name: 'Night'});
-  map.mapTypes.set('night_map', nightMapStyle);
-  map.setMapTypeId('night_map');
-
+function createMarker(city, map){
   const infoWindow = new google.maps.InfoWindow({
-    content: "<h2>2000-2020<h2><h3>born and raised</h3>"
+    content: "<h3>" + city.dateVisited + "</h3>"
   });
 
   /* add marker on map */
   const marker = new google.maps.Marker({
-    position: jakarta, 
+    position: {lat: city.lat, lng: city.lng}, 
     map: map, 
-    title: "Jakarta"
+    title: city.name
   });
 
-  marker.addListener('click', function() {
+  marker.addListener("click", function() {
     infoWindow.open(map, marker);
-    map.setZoom(20);
+    map.setZoom(12);
     map.setCenter(marker.getPosition());
   });
+  return marker;
 }

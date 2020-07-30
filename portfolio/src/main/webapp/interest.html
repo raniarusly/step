@@ -5,6 +5,7 @@
     <title>My Portfolio - Interest</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
@@ -12,22 +13,22 @@
     <div id="content">
 
       <!-- navigation bar -->
-      <nav class="w3-bar w3-black">
-        <a href="index.html" class="w3-bar-item w3-button">Home</a>
-        <a href="experience.html" class="w3-bar-item w3-button">Experience</a>
-        <a href="interest.html" class="w3-bar-item w3-button">Interest</a>
-        <a href="gallery.html" class="w3-bar-item w3-button">Gallery</a>
-        <a href="contact.html" class="w3-bar-item w3-button">Contact Me</a>
-        <a class="w3-bar-item w3-right"><b>Rania Rusly</b></a>
+      <nav>
+        <a href="index.html" class="bar-item w3-button">Home</a>
+        <a href="experience.html" class="bar-item w3-button">Experience</a>
+        <a href="interest.html" class="bar-item w3-button">Interest</a>
+        <a href="gallery.html" class="bar-item w3-button">Gallery</a>
+        <a href="contact.html" class="bar-item w3-button">Contact Me</a>
+        <div class="name-bar-item">Rania Rusly</div>
       </nav>
 
       <!-- K-drama -->
-      <div class="w3-cell-row section">
+      <div class="section">
         <h1>K-drama</h1>
         <p>Hi! I watch lots and lots of K-drama, from romance to thriller</p>
         <p>Since I have wasted countless hours on it, I would be happy to provide recommendations.</p>
         <p>If you are feeling bored and want to try a K-drama, I will easily recommend one for you!</p>
-        <div class="w3-center">
+        <div class="center">
           <button onclick="getKdramaRecommendation()">Recommend me a K-drama</button>
           <br>
           <h2><a id="kdrama-title"></a></h2>
@@ -36,6 +37,21 @@
         </div>
       </div>
 
+      <div class="footer">
+        <!-- social media link -->
+        <div class = "sns-container">
+          <a href="https://www.instagram.com/raniatamara/">
+            <i class="sns-icon sns-icon w3-button fa fa-instagram " style="font-size:40px"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/rania-rusly-a08132157/">
+            <i class="sns-icon w3-button fa fa-linkedin-square" style="font-size:40px"></i>
+          </a>
+          <a href="https://github.com/raniarusly">
+            <i class="sns-icon w3-button fa fa-github-square" style="font-size:40px"></i>
+          </a>
+        </div>
+        <div class="name-bar-item">© 2020 Rania Rusly</div>
+      </div>
     </div>    
   </body>
 </html>
