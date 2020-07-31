@@ -17,13 +17,11 @@ package com.google.sps.data;
 /** The class represents a user location, the name and coordinate. */
 public final class Location {
 
-  private final String userEmail;
   private final double lat;
   private final double lng;
   private final long timestamp;
 
-  public Location(String userEmail, double lat, double lng, long timestamp) {
-    this.userEmail = userEmail;
+  public Location(double lat, double lng, long timestamp) {
     this.lat = lat;
     this.lng = lng;
     this.timestamp = timestamp;

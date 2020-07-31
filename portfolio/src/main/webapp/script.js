@@ -159,7 +159,7 @@ async function checkLogin(){
 function addUserLocation(){
     // Try HTML5 geolocation.
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
+    navigator.geolocation.getCurrentPosition(async function(position) {
       const params = new URLSearchParams();
       params.append('lat', position.coords.latitude);
       params.append('lng', position.coords.longitude);
@@ -169,36 +169,25 @@ function addUserLocation(){
     //   handleLocationError(map, true, map.getCenter());
     });
   } else {
-      console.log("fail-2");
     // Browser doesn't support Geolocation
+    console.log("fail-2");
     // handleLocationError(map, false, infoWindow, map.getCenter());
   }
 }
 
 function initMap() {
+  addUserLocation();  
   initTravelMap();
   initUserMap();
 }
 
-const JAKARTA = {lat: -6.175540, lng: 106.82743};
-const ZOOM_SCALE = 5;
-
-function initTravelMap() {  
-  fetch("/city-data").then(result => result.json()).then((cities) => {
-      const map = createMap("travel-map");
-
-      var markers = cities.map((city) => {
-        return createCityMarker(city, map);
-      });
-      var markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"});
-  });
-}
+var jakarta = {lat: -6.175540, lng: 106.82743};
+var zoomScale = 5;
 
 function createMap(mapId) {
   const map = new google.maps.Map( document.getElementById(mapId), {
-    center: JAKARTA,
-    zoom: ZOOM_SCALE,
+    center: jakarta,
+    zoom: 5,
     mapTypeControlOptions: { mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'night_map'] }
   });
 
@@ -206,6 +195,22 @@ function createMap(mapId) {
   const nightMapStyle = new google.maps.StyledMapType(nightVersion, {name: 'Night'});
   map.mapTypes.set('night_map', nightMapStyle);
   return map;
+}
+
+function addMarker(map, data, createMarker){
+  var markers = data.map((entity) => {
+    return createMarker(entity, map);
+  });
+  var markerCluster = new MarkerClusterer(map, markers,
+        {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+}
+
+function initTravelMap() {  
+  fetch("/city-data").then(result => result.json()).then((cities) => {
+      console.log(cities);
+      const map = createMap("travel-map");
+      addMarker(map, cities, createCityMarker); 
+  });
 }
 
 function createCityMarker(city, map){
@@ -232,11 +237,7 @@ function initUserMap() {
   fetch("/user-location-data").then(result => result.json()).then((locations) => {
     console.log(locations);
     const map = createMap("user-map");
-    var markers = locations.map((location) => {
-      return createLocationMarker(location, map);
-    });
-    var markerCluster = new MarkerClusterer(map, markers,
-          {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+    addMarker(map, locations, createLocationMarker);
   });
 }
 

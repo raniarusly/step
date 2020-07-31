@@ -39,6 +39,7 @@ p {
 nav {
   position: fixed;
   top: 0;
+  z-index: 1;
   color: white;
   background-color: black;
   width: inherit;

@@ -14,8 +14,6 @@
 
 package com.google.sps.servlets;
 
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -48,11 +46,10 @@ public class LocationServlet extends HttpServlet {
 
     List<Location> locations = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
-      String userEmail = (String) entity.getProperty("userEmail");
       double lat = (double) entity.getProperty("latitude");
       double lng = (double) entity.getProperty("longitude");
       long timestamp = (long) entity.getProperty("timestamp");
-      locations.add(new Location(userEmail, lat, lng, timestamp));
+      locations.add(new Location(lat, lng, timestamp));
     }
 
     String json = new Gson().toJson(locations);
@@ -63,13 +60,10 @@ public class LocationServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     long timestamp = System.currentTimeMillis();
-    UserService userService = UserServiceFactory.getUserService();
-    String userEmail = userService.getCurrentUser().getEmail();
     double lat = Double.parseDouble(request.getParameter("lat"));
     double lng = Double.parseDouble(request.getParameter("lng"));
 
     Entity locationEntity = new Entity("Location");
-    locationEntity.setProperty("userEmail", userEmail);
     locationEntity.setProperty("latitude", lat);
     locationEntity.setProperty("longitude", lng);
     locationEntity.setProperty("timestamp", timestamp);
