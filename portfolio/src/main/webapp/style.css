@@ -78,6 +78,11 @@ nav {
   margin: auto;
 }
 
+.map-section {
+  height: 1000px;
+  padding: 50px 30px;
+}
+
 .bar-item{
   user-select: none;
   border: none;
