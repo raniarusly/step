@@ -157,7 +157,6 @@ async function checkLogin(){
 }
 
 function addUserLocation(){
-    // Try HTML5 geolocation.
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(async function(position) {
       const params = new URLSearchParams();
@@ -165,18 +164,16 @@ function addUserLocation(){
       params.append('lng', position.coords.longitude);
       fetch('/user-location-data', {method: 'POST', body: params});
     }, function() {
-        console.log("fail-1");
-    //   handleLocationError(map, true, map.getCenter());
+      console.log("Error: The Geolocation service failed.");
     });
   } else {
     // Browser doesn't support Geolocation
-    console.log("fail-2");
-    // handleLocationError(map, false, infoWindow, map.getCenter());
+    console.log("Error: Your browser doesn\'t support geolocation.");
   }
 }
 
-function initMap() {
-  addUserLocation();  
+async function initMap() {
+  await addUserLocation();  
   initTravelMap();
   initUserMap();
 }
@@ -254,11 +251,3 @@ function createLocationMarker(location, map){
   });
   return marker;
 }
-
-// function handleLocationError(map, browserHasGeolocation, infoWindow, position) {
-//   infoWindow.setPosition(position);
-//   infoWindow.setContent(browserHasGeolocation ?
-//                         'Error: The Geolocation service failed.' :
-//                         'Error: Your browser doesn\'t support geolocation.');
-//   infoWindow.open(map);
-// }
