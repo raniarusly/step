@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
-    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuk539i0M-Dm_8O_GlJowtpnWYN6Taqxg&callback=initMap"></script>
+    <script src="api-key.js"></script>
     <script src="nightVersion.js"></script>
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script src="script.js"></script>
@@ -25,14 +25,22 @@
         <div class="name-bar-item">Rania Rusly</div>
       </nav>
 
-      <div class="section">
+      <div class="section" height="800px">
         <h1>Cities through my lense!</h1>
         <p>Through the years, I like to take pictures of cities that I have been</p>
         <p>To look at the photo galleries, navigate through the map and select a pin!</p>
-        <br><br>
-        <div id="user-map" class="map"></div>
+        <p>This feature is a Work in Progress for now, I am prioritizing to try out the other API and libraries</p>
         <br><br>
         <div id="travel-map" class="map"></div>
+      </div>
+
+      <div class="section" height="800px">
+        <h1>Demographic</h1>
+        <p>Hi I am trying out the Geolocation API and the map below is the result!</p>
+        <p>The map shows the location where the page views come from</p>
+        <p>To see your mark on the map, please allow the location enabling, thank you!</p>
+        <br><br>
+        <div id="user-map" class="map"></div>
       </div>
 
       <div class="footer">
