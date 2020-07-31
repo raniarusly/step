@@ -156,6 +156,18 @@ async function checkLogin(){
   }
 }
 
+function loadingAlert(){
+  alert("Please allow a few seconds for the maps to load :D");
+}
+
+async function initMap() {
+  await addUserLocation();  
+  initTravelMap();
+  initUserMap();
+}
+
+var jakarta = {lat: -6.175540, lng: 106.82743};
+
 function addUserLocation(){
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(async function(position) {
@@ -172,19 +184,10 @@ function addUserLocation(){
   }
 }
 
-async function initMap() {
-  await addUserLocation();  
-  initTravelMap();
-  initUserMap();
-}
-
-var jakarta = {lat: -6.175540, lng: 106.82743};
-var zoomScale = 5;
-
-function createMap(mapId) {
+function createMap(mapId, center) {
   const map = new google.maps.Map( document.getElementById(mapId), {
-    center: jakarta,
-    zoom: 5,
+    center: center,
+    zoom: 1,
     mapTypeControlOptions: { mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'night_map'] }
   });
 
@@ -205,7 +208,7 @@ function addMarker(map, data, createMarker){
 function initTravelMap() {  
   fetch("/city-data").then(result => result.json()).then((cities) => {
       console.log(cities);
-      const map = createMap("travel-map");
+      const map = createMap("travel-map", jakarta);
       addMarker(map, cities, createCityMarker); 
   });
 }
@@ -233,7 +236,7 @@ function createCityMarker(city, map){
 function initUserMap() {  
   fetch("/user-location-data").then(result => result.json()).then((locations) => {
     console.log(locations);
-    const map = createMap("user-map");
+    const map = createMap("user-map", jakarta);
     addMarker(map, locations, createLocationMarker);
   });
 }
