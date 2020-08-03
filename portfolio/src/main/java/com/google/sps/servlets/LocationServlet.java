@@ -59,14 +59,10 @@ public class LocationServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    long timestamp = System.currentTimeMillis();
-    double lat = Double.parseDouble(request.getParameter("lat"));
-    double lng = Double.parseDouble(request.getParameter("lng"));
-
     Entity locationEntity = new Entity("Location");
-    locationEntity.setProperty("latitude", lat);
-    locationEntity.setProperty("longitude", lng);
-    locationEntity.setProperty("timestamp", timestamp);
+    locationEntity.setProperty("latitude", Double.parseDouble(request.getParameter("lat")));
+    locationEntity.setProperty("longitude", Double.parseDouble(request.getParameter("lng")));
+    locationEntity.setProperty("timestamp", System.currentTimeMillis());
     
     datastore.put(locationEntity);
     response.sendRedirect("/gallery.html");

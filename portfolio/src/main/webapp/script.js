@@ -80,7 +80,7 @@ function getKdramaRecommendation() {
   document.getElementById("kdrama-title").href = recommendation.link;
 }
 
-function getComments(){
+function getComments() {
   const input = document.getElementById("limit");
   const limit = input.options[input.selectedIndex].value;
   var query = "/data?limit=";
@@ -139,7 +139,7 @@ function validateForm() {
   }
 }
 
-async function checkLogin(){
+async function checkLogin() {
   const result = await fetch("/login");
   const details = await result.json();
 
@@ -156,7 +156,7 @@ async function checkLogin(){
   }
 }
 
-function loadingAlert(){
+function loadingAlert() {
   alert("Please allow a few seconds for the maps to load :D");
 }
 
@@ -168,15 +168,15 @@ async function initMap() {
 
 var jakarta = {lat: -6.175540, lng: 106.82743};
 
-function addUserLocation(){
+function addUserLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(async function(position) {
       const params = new URLSearchParams();
       params.append('lat', position.coords.latitude);
       params.append('lng', position.coords.longitude);
       fetch('/user-location-data', {method: 'POST', body: params});
-    }, function() {
-      console.log("Error: The Geolocation service failed.");
+    }, function(error) {
+      console.warn(`Error ${err.code}: The Geolocation service failed. ${err.message}`);
     });
   } else {
     // Browser doesn't support Geolocation
@@ -197,7 +197,7 @@ function createMap(mapId, center) {
   return map;
 }
 
-function addMarker(map, data, createMarker){
+function addMarker(map, data, createMarker) {
   var markers = data.map((entity) => {
     return createMarker(entity, map);
   });
@@ -213,7 +213,7 @@ function initTravelMap() {
   });
 }
 
-function createCityMarker(city, map){
+function createCityMarker(city, map) {
   const infoWindow = new google.maps.InfoWindow({
     content: "<h3>" + city.name + "</h3><h4>"+ city.dateVisited + "</h4>"
   });
@@ -241,7 +241,7 @@ function initUserMap() {
   });
 }
 
-function createLocationMarker(location, map){
+function createLocationMarker(location, map) {
   /* add marker on map */
   const marker = new google.maps.Marker({
     position: {lat: location.lat, lng: location.lng}, 
