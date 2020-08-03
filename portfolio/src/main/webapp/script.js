@@ -83,7 +83,7 @@ function getKdramaRecommendation() {
 function getComments() {
   const input = document.getElementById("limit");
   const limit = input.options[input.selectedIndex].value;
-  var query = "/data?limit=";
+  const query = "/data?limit=";
   fetch(query.concat(limit)).then(result => result.json()).then((comments) => {
     const section = document.getElementById("comments");
     section.innerHTML = "";
@@ -132,7 +132,7 @@ function deleteComment(comment) {
 }
 
 function validateForm() {
-  var comment = document.forms["comment-section"]["comment-input"].value;
+  const comment = document.forms["comment-section"]["comment-input"].value;
   if (comment == "") {
     alert("Comment cannot be empty :)");
     return false;
@@ -166,7 +166,8 @@ async function initMap() {
   initUserMap();
 }
 
-var jakarta = {lat: -6.175540, lng: 106.82743};
+const jakarta = {lat: -6.175540, lng: 106.82743};
+const zoomScale = 1;
 
 function addUserLocation() {
   if (navigator.geolocation) {
@@ -187,7 +188,7 @@ function addUserLocation() {
 function createMap(mapId, center) {
   const map = new google.maps.Map( document.getElementById(mapId), {
     center: center,
-    zoom: 1,
+    zoom: zoomScale,
     mapTypeControlOptions: { mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'night_map'] }
   });
 
@@ -198,10 +199,10 @@ function createMap(mapId, center) {
 }
 
 function addMarker(map, data, createMarker) {
-  var markers = data.map((entity) => {
+  const markers = data.map((entity) => {
     return createMarker(entity, map);
   });
-  var markerCluster = new MarkerClusterer(map, markers,
+  const markerCluster = new MarkerClusterer(map, markers,
         {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 }
 
