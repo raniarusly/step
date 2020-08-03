@@ -14,7 +14,7 @@
 
 package com.google.sps.data;
 
-/** The class represents a user location, the name and coordinate. */
+/** The class represents a user location (its coordinate). */
 public final class Location {
 
   private final double lat;
