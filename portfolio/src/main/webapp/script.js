@@ -115,8 +115,15 @@ function createCommentElement(comment) {
   deleteButtonElement.className = "delete-button"
   deleteButtonElement.innerText = "Delete";
   deleteButtonElement.addEventListener("click", () => {
-    deleteComment(comment);
-    commentElement.remove();
+    fetch("/user-email").then(result => result.text()).then((userEmail) => {
+      if (userEmail != comment.userEmail) {
+        alert("You can only delete your own comment");
+      }
+      else {
+        deleteComment(comment);
+        commentElement.remove();
+      }
+    });
   });
 
   commentElement.appendChild(contentElement);
