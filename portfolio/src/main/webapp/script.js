@@ -138,6 +138,7 @@ function deleteComment(comment) {
   fetch("/delete-data", {method: "POST", body: params});
 }
 
+/* Forbid commenting with empty comment */
 function validateForm() {
   const comment = document.forms["comment-section"]["comment-input"].value;
   if (comment == "") {
@@ -146,6 +147,7 @@ function validateForm() {
   }
 }
 
+/* Display or hide the commenting section (contact.html) based on the user login status */
 async function checkLogin() {
   const result = await fetch("/login");
   const details = await result.json();
@@ -167,6 +169,7 @@ function loadingAlert() {
   alert("Please allow a few seconds for the maps to load :D");
 }
 
+/* Initialize map element */
 async function initMap() {
   await addUserLocation();  
   initTravelMap();
@@ -176,6 +179,7 @@ async function initMap() {
 const jakarta = {lat: -6.175540, lng: 106.82743};
 const zoomScale = 1;
 
+/* Add user location (latitude and longitude) to Location datastore */
 function addUserLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(async function(position) {
@@ -192,6 +196,7 @@ function addUserLocation() {
   }
 }
 
+/* Create and returns a map created on the html with the mapId and a given center*/
 function createMap(mapId, center) {
   const map = new google.maps.Map( document.getElementById(mapId), {
     center: center,
@@ -205,6 +210,7 @@ function createMap(mapId, center) {
   return map;
 }
 
+/* Add a marker on the map using specific function, then cluster them */
 function addMarker(map, data, createMarker) {
   const markers = data.map((entity) => {
     return createMarker(entity, map);
@@ -213,6 +219,7 @@ function addMarker(map, data, createMarker) {
         {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 }
 
+/* Initialize map which display the places I have traveled to */ 
 function initTravelMap() {  
   fetch("/city-data").then(result => result.json()).then((cities) => {
       console.log(cities);
@@ -221,6 +228,7 @@ function initTravelMap() {
   });
 }
 
+/* Create a marker on the map which represents a city that has been visited */
 function createCityMarker(city, map) {
   const infoWindow = new google.maps.InfoWindow({
     content: "<h3>" + city.name + "</h3><h4>"+ city.dateVisited + "</h4>"
@@ -241,6 +249,7 @@ function createCityMarker(city, map) {
   return marker;
 }
 
+/* Initialize a map which displays where the website's page views come from */
 function initUserMap() {  
   fetch("/user-location-data").then(result => result.json()).then((locations) => {
     console.log(locations);
@@ -249,6 +258,7 @@ function initUserMap() {
   });
 }
 
+/* Create a marker on the map which represents a location */
 function createLocationMarker(location, map) {
   /* add marker on map */
   const marker = new google.maps.Marker({

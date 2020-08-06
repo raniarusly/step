@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that sends and returns the email of the user.*/
+/** Servlet that returns the email of the user.*/
 @WebServlet("/user-email")
 public class UserEmailServlet extends HttpServlet {
   @Override
