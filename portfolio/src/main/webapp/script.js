@@ -171,9 +171,16 @@ function loadingAlert() {
 
 /* Create and returns a map created on the html with the mapId and a given center*/
 const jakarta = {lat: -6.175540, lng: 106.82743};
-const zoomScale = 1;
+const athens = {lat: 37.9838, lng: 23.7275};
+const prague = {lat: 50.0755, lng: 14.4378};
+const london = {lat: 51.514248, lng: -0.09314520};
+const florence = {lat: 43.766667, lng: 11.25};
+const budapest = {lat: 47.5, lng: 19.083333};
+const santorini = {lat: 36.3932, lng: 25.4615};
+const vatican = {lat: 41.9029, lng: 12.4534}
+const salzburg = {lat: 47.8095,lng: 13.0550};
 
-function createMap(mapId, center) {
+function createMap(mapId, center, zoomScale) {
   const map = new google.maps.Map( document.getElementById(mapId), {
     center: center,
     zoom: zoomScale,
@@ -195,11 +202,15 @@ function addMarker(map, data, createMarker) {
         {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 }
 
-/* Initialize map which display the places I have traveled to */ 
-function initTravelMap() {  
+/* Initialize map which display the places I have traveled to */
+function initTravelMap(){
+    initCenteredTravelMap(jakarta)
+}
+
+function initCenteredTravelMap(center) {
   fetch("/city-data").then(result => result.json()).then((cities) => {
       console.log(cities);
-      const map = createMap("travel-map", jakarta);
+      const map = createMap("travel-map", center, 10);
       addMarker(map, cities, createCityMarker); 
   });
 }
@@ -251,7 +262,7 @@ function addUserLocation() {
 /* Initialize a map which displays where the website's page views come from */
 function initUserMap() {  
   fetch("/user-location-data").then(result => result.json()).then((locations) => {
-    const map = createMap("user-map", jakarta);
+    const map = createMap("user-map", jakarta, 1);
     addMarker(map, locations, createLocationMarker);
   });
 }
@@ -269,4 +280,32 @@ function createLocationMarker(location, map) {
     map.setCenter(marker.getPosition());
   });
   return marker;
+}
+
+function centerAthens(){
+  initCenteredTravelMap(athens)
+}
+
+function centerPrague(){
+  initCenteredTravelMap(prague)
+}
+
+function centerFlorence(){
+  initCenteredTravelMap(florence)
+}
+
+function centerLondon(){
+  initCenteredTravelMap(london)
+}
+
+function centerSalzburg(){
+  initCenteredTravelMap(salzburg)
+}
+
+function centerVatican(){
+  initCenteredTravelMap(vatican)
+}
+
+function centerBudapest(){
+  initCenteredTravelMap(budapest)
 }

@@ -79,7 +79,7 @@ nav {
 }
 
 .map-section {
-  height: 1000px;
+  height: 800px;
   padding: 50px 30px;
 }
 
@@ -204,6 +204,37 @@ nav {
 
 .comment-textarea{
   width: 500px;
+}
+
+.travel-img {
+  margin: auto;
+  vertical-align: middle;
+  height: 630px !important;
+}
+
+.gallery-container {
+  display: table;
+  width: 100%;
+  height:630px;
+  padding: 20px;
+}
+
+.gallery-section {
+  text-align: center;
+  display: table-cell;
+  height:700px;
+  padding: 20px;
+}
+
+.carousel-gallery {
+  margin: auto;
+  vertical-align: middle;
+}
+
+.travel-button {
+  font-weight: 600;
+  margin: 20px;
+  color: black;
 }
 
 /* font */
