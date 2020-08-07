@@ -37,9 +37,9 @@ public final class FindMeetingQuery {
 
       TimeRange eventTime = event.getWhen();
       if(meetingOption.contains(eventTime)){
-        TimeRange potentiaMeetingOption = (TimeRange.fromStartEnd(meetingOption.start(), eventTime.start(), false));
-        if(potentiaMeetingOption.duration() >= request.getDuration()){
-          meetingOptions.add(potentiaMeetingOption);
+        TimeRange potentialMeetingOption = (TimeRange.fromStartEnd(meetingOption.start(), eventTime.start(), false));
+        if(potentialMeetingOption.duration() >= request.getDuration()){
+          meetingOptions.add(potentialMeetingOption);
         }
         meetingOption = TimeRange.fromStartEnd(eventTime.end(), meetingOption.end(), false);
       }

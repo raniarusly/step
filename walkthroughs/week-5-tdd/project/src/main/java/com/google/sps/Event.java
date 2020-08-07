@@ -88,7 +88,7 @@ public final class Event {
   }
 
   /**
-   * Returns true if the event is attended by one of the set of attendees passed in as parameter
+   * Returns true if the event is attended by at least one of the attendees in the set passed in as parameter
    */
   public boolean attendedBy(Collection<String> attendees){
     for(String attendee : attendees){
