@@ -14,10 +14,43 @@
 
 package com.google.sps;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    throw new UnsupportedOperationException("TODO: Implement this method.");
+    List<Event> eventList = new ArrayList<>(events);
+    Collections.sort(eventList, Event.ORDER_BY_START);
+    Collection<TimeRange> meetingOptions = new ArrayList<>();
+    TimeRange meetingOption = TimeRange.WHOLE_DAY;
+    for(Event event : eventList){
+      // no more meeting option, since the time left on the day is less than the requested duration
+      if(meetingOption.duration() < request.getDuration()){
+        break;
+      }
+      // event does not matter if it is not attended by any of the request's attendants
+      if(!event.attendedBy(request.getAttendees())){
+        continue;
+      }
+
+      TimeRange eventTime = event.getWhen();
+      if(meetingOption.contains(eventTime)){
+        TimeRange potentialMeetingOption = (TimeRange.fromStartEnd(meetingOption.start(), eventTime.start(), false));
+        if(potentialMeetingOption.duration() >= request.getDuration()){
+          meetingOptions.add(potentialMeetingOption);
+        }
+        meetingOption = TimeRange.fromStartEnd(eventTime.end(), meetingOption.end(), false);
+      }
+      if(meetingOption.overlaps(eventTime)){
+        meetingOption = TimeRange.fromStartEnd(eventTime.end(), meetingOption.end(), false);
+      }
+
+    }
+    if(meetingOption.duration() >= request.getDuration()){
+      meetingOptions.add(meetingOption);
+    }
+    return meetingOptions;
   }
 }

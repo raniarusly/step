@@ -16,6 +16,7 @@ package com.google.sps;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,6 +28,16 @@ public final class Event {
   private final String title;
   private final TimeRange when;
   private final Set<String> attendees = new HashSet<>();
+
+  /**
+   * A comparator for sorting events by their start time in ascending order.
+   */
+  public static final Comparator<Event> ORDER_BY_START = new Comparator<Event>() {
+    @Override
+    public int compare(Event a, Event b) {
+      return Long.compare(a.when.start(), b.when.start());
+    }
+  };
 
   /**
    * Creates a new event.
@@ -74,6 +85,25 @@ public final class Event {
     // Return the attendees as an unmodifiable set so that the caller can't change our
     // internal data.
     return Collections.unmodifiableSet(attendees);
+  }
+
+  /**
+   * Returns true if the event is attended by at least one of the attendees in the set passed in as parameter
+   */
+  public boolean attendedBy(Collection<String> attendees){
+    for(String attendee : attendees){
+      if(attendedBy(attendee)){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Returns true if the event is attended by the specific attendee
+   */
+  private boolean attendedBy(String attendee){
+      return attendees.contains(attendee);
   }
 
   @Override
