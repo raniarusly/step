@@ -1,3 +1,4 @@
+/* Json that represents the night version style for the map API */
 nightVersion =
 [
   {

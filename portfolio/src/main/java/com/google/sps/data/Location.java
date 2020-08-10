@@ -12,32 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps;
+package com.google.sps.data;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+/** The class represents a user location (its coordinate). */
+public final class Location {
 
-@RunWith(JUnit4.class)
-public final class GreeterTest {
+  private final double lat;
+  private final double lng;
+  private final long timestamp;
 
-  @Test
-  public void testGreeting() {
-    Greeter greeter = new Greeter();
-
-    String greeting = greeter.greet("Ada");
-
-    Assert.assertEquals("Hello Ada", greeting);
-  }
-
-  @Test
-  public void testGreetingTrimsWhitespace() {
-  Greeter greeter = new Greeter();
-
-  String greeting = greeter.greet("   Ada   ");
-
-  // Whitespace should be trimmed
-  Assert.assertEquals("Hello Ada", greeting);
+  public Location(double lat, double lng, long timestamp) {
+    this.lat = lat;
+    this.lng = lng;
+    this.timestamp = timestamp;
   }
 }

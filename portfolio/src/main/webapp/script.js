@@ -80,10 +80,10 @@ function getKdramaRecommendation() {
   document.getElementById("kdrama-title").href = recommendation.link;
 }
 
-function getComments(){
+function getComments() {
   const input = document.getElementById("limit");
   const limit = input.options[input.selectedIndex].value;
-  var query = "/data?limit=";
+  const query = "/data?limit=";
   fetch(query.concat(limit)).then(result => result.json()).then((comments) => {
     const section = document.getElementById("comments");
     section.innerHTML = "";
@@ -115,8 +115,15 @@ function createCommentElement(comment) {
   deleteButtonElement.className = "delete-button"
   deleteButtonElement.innerText = "Delete";
   deleteButtonElement.addEventListener("click", () => {
-    deleteComment(comment);
-    commentElement.remove();
+    fetch("/user-email").then(result => result.text()).then((userEmail) => {
+      if (userEmail != comment.userEmail) {
+        alert("You can only delete your own comment");
+      }
+      else {
+        deleteComment(comment);
+        commentElement.remove();
+      }
+    });
   });
 
   commentElement.appendChild(contentElement);
@@ -131,15 +138,17 @@ function deleteComment(comment) {
   fetch("/delete-data", {method: "POST", body: params});
 }
 
+/* Forbid commenting with empty comment */
 function validateForm() {
-  var comment = document.forms["comment-section"]["comment-input"].value;
+  const comment = document.forms["comment-section"]["comment-input"].value;
   if (comment == "") {
     alert("Comment cannot be empty :)");
     return false;
   }
 }
 
-async function checkLogin(){
+/* Display or hide the commenting section (contact.html) based on the user login status */
+async function checkLogin() {
   const result = await fetch("/login");
   const details = await result.json();
 
@@ -156,33 +165,73 @@ async function checkLogin(){
   }
 }
 
-/* Creates a map and adds it to the page. */
-function initMap() {
-  const jakarta = {lat: -6.175540, lng: 106.82743};
-  const zoom_scale = 5;
+function loadingAlert() {
+  alert("Please allow a few seconds for the maps to load :D");
+}
+
+/* Initialize map element */
+async function initMap() {
+  await addUserLocation();  
+  initTravelMap();
+  initUserMap();
+}
+
+const jakarta = {lat: -6.175540, lng: 106.82743};
+const zoomScale = 1;
+
+/* Add user location (latitude and longitude) to Location datastore */
+function addUserLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(async function(position) {
+      const params = new URLSearchParams();
+      params.append('lat', position.coords.latitude);
+      params.append('lng', position.coords.longitude);
+      fetch('/user-location-data', {method: 'POST', body: params});
+    }, function(error) {
+      console.warn(`Error ${err.code}: The Geolocation service failed. ${err.message}`);
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    console.log("Error: Your browser doesn\'t support geolocation.");
+  }
+}
+
+/* Create and returns a map created on the html with the mapId and a given center*/
+function createMap(mapId, center) {
+  const map = new google.maps.Map( document.getElementById(mapId), {
+    center: center,
+    zoom: zoomScale,
+    mapTypeControlOptions: { mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'night_map'] }
+  });
+
+  /** Set up map in night mode */
+  const nightMapStyle = new google.maps.StyledMapType(nightVersion, {name: 'Night'});
+  map.mapTypes.set('night_map', nightMapStyle);
+  return map;
+}
+
+/* Add a marker on the map using specific function, then cluster them */
+function addMarker(map, data, createMarker) {
+  const markers = data.map((entity) => {
+    return createMarker(entity, map);
+  });
+  const markerCluster = new MarkerClusterer(map, markers,
+        {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+}
+
+/* Initialize map which display the places I have traveled to */ 
+function initTravelMap() {  
   fetch("/city-data").then(result => result.json()).then((cities) => {
       console.log(cities);
-      const map = new google.maps.Map( document.getElementById("map"), {
-        center: jakarta,
-        zoom: zoom_scale,
-        mapTypeControlOptions: { mapTypeIds: ["roadmap", "satellite", "hybrid", "terrain", "night_map"] }
-      });
-
-      /** Set up map in night mode */
-      const nightMapStyle = new google.maps.StyledMapType(nightVersion, {name: "Night"});
-      map.mapTypes.set("night_map", nightMapStyle);
-
-      var markers = cities.map((city) => {
-        return createMarker(city, map);
-      });
-      var markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"});
+      const map = createMap("travel-map", jakarta);
+      addMarker(map, cities, createCityMarker); 
   });
 }
 
-function createMarker(city, map){
+/* Create a marker on the map which represents a city that has been visited */
+function createCityMarker(city, map) {
   const infoWindow = new google.maps.InfoWindow({
-    content: "<h3>" + city.dateVisited + "</h3>"
+    content: "<h3>" + city.name + "</h3><h4>"+ city.dateVisited + "</h4>"
   });
 
   /* add marker on map */
@@ -194,6 +243,30 @@ function createMarker(city, map){
 
   marker.addListener("click", function() {
     infoWindow.open(map, marker);
+    map.setZoom(12);
+    map.setCenter(marker.getPosition());
+  });
+  return marker;
+}
+
+/* Initialize a map which displays where the website's page views come from */
+function initUserMap() {  
+  fetch("/user-location-data").then(result => result.json()).then((locations) => {
+    console.log(locations);
+    const map = createMap("user-map", jakarta);
+    addMarker(map, locations, createLocationMarker);
+  });
+}
+
+/* Create a marker on the map which represents a location */
+function createLocationMarker(location, map) {
+  /* add marker on map */
+  const marker = new google.maps.Marker({
+    position: {lat: location.lat, lng: location.lng}, 
+    map: map, 
+  });
+
+  marker.addListener("click", function() {
     map.setZoom(12);
     map.setCenter(marker.getPosition());
   });

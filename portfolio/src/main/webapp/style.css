@@ -39,6 +39,7 @@ p {
 nav {
   position: fixed;
   top: 0;
+  z-index: 1;
   color: white;
   background-color: black;
   width: inherit;
@@ -71,10 +72,15 @@ nav {
   margin-top: 20px;
 }
 
-#map {
+.map {
   height: 500px;
   width: 500px;
   margin: auto;
+}
+
+.map-section {
+  height: 1000px;
+  padding: 50px 30px;
 }
 
 .bar-item{
