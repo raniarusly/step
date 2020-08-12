@@ -169,35 +169,18 @@ function loadingAlert() {
   alert("Please allow a few seconds for the maps to load :D");
 }
 
-/* Initialize map element */
-async function initMap() {
-  await addUserLocation();  
-  initTravelMap();
-  initUserMap();
-}
-
-const jakarta = {lat: -6.175540, lng: 106.82743};
-const zoomScale = 1;
-
-/* Add user location (latitude and longitude) to Location datastore */
-function addUserLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(async function(position) {
-      const params = new URLSearchParams();
-      params.append('lat', position.coords.latitude);
-      params.append('lng', position.coords.longitude);
-      fetch('/user-location-data', {method: 'POST', body: params});
-    }, function(error) {
-      console.warn(`Error ${err.code}: The Geolocation service failed. ${err.message}`);
-    });
-  } else {
-    // Browser doesn't support Geolocation
-    console.log("Error: Your browser doesn\'t support geolocation.");
-  }
-}
-
 /* Create and returns a map created on the html with the mapId and a given center*/
-function createMap(mapId, center) {
+const jakarta = {lat: -6.175540, lng: 106.82743};
+const athens = {lat: 37.9838, lng: 23.7275};
+const prague = {lat: 50.0755, lng: 14.4378};
+const london = {lat: 51.514248, lng: -0.09314520};
+const florence = {lat: 43.766667, lng: 11.25};
+const budapest = {lat: 47.5, lng: 19.083333};
+const santorini = {lat: 36.3932, lng: 25.4615};
+const vatican = {lat: 41.9029, lng: 12.4534}
+const salzburg = {lat: 47.8095,lng: 13.0550};
+
+function createMap(mapId, center, zoomScale) {
   const map = new google.maps.Map( document.getElementById(mapId), {
     center: center,
     zoom: zoomScale,
@@ -219,11 +202,15 @@ function addMarker(map, data, createMarker) {
         {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 }
 
-/* Initialize map which display the places I have traveled to */ 
-function initTravelMap() {  
+/* Initialize map which display the places I have traveled to */
+function initTravelMap(){
+    initCenteredTravelMap(jakarta)
+}
+
+function initCenteredTravelMap(center) {
   fetch("/city-data").then(result => result.json()).then((cities) => {
       console.log(cities);
-      const map = createMap("travel-map", jakarta);
+      const map = createMap("travel-map", center, 10);
       addMarker(map, cities, createCityMarker); 
   });
 }
@@ -249,11 +236,33 @@ function createCityMarker(city, map) {
   return marker;
 }
 
+/* Store user location and display page views map */
+async function initDemographicMap() {
+  await addUserLocation();
+  initUserMap();
+}
+
+/* Store user location (latitude and longitude) to Location datastore */
+function addUserLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(async function(position) {
+      const params = new URLSearchParams();
+      params.append('lat', position.coords.latitude);
+      params.append('lng', position.coords.longitude);
+      fetch('/user-location-data', {method: 'POST', body: params});
+    }, function(error) {
+      console.warn(`Error ${err.code}: The Geolocation service failed. ${err.message}`);
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    console.log("Error: Your browser doesn\'t support geolocation.");
+  }
+}
+
 /* Initialize a map which displays where the website's page views come from */
 function initUserMap() {  
   fetch("/user-location-data").then(result => result.json()).then((locations) => {
-    console.log(locations);
-    const map = createMap("user-map", jakarta);
+    const map = createMap("user-map", jakarta, 1);
     addMarker(map, locations, createLocationMarker);
   });
 }

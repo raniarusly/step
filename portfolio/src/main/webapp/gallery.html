@@ -2,15 +2,18 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>My Portfolio - Gallery</title>
+    <title>Rania's Portfolio - Gallery</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="apiKey.js"></script>
     <script src="mapScript.js"></script>
     <script src="nightVersion.js"></script>
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
   </head>
   <body onload=loadingAlert()>
@@ -20,13 +23,15 @@
       <nav>
         <a href="index.html" class="bar-item w3-button">Home</a>
         <a href="experience.html" class="bar-item w3-button">Experience</a>
+        <a href="/files/CV_Rania_Rusly.pdf" target="_blank" class="bar-item w3-button">Resume</a>
         <a href="interest.html" class="bar-item w3-button">Interest</a>
         <a href="gallery.html" class="bar-item w3-button">Gallery</a>
+        <a href="demographic.html" class="bar-item w3-button">Demographic</a>
         <a href="contact.html" class="bar-item w3-button">Contact Me</a>
         <div class="name-bar-item">Rania Rusly</div>
       </nav>
 
-      <div class="map-section">
+      <div id="map-display" class="map-section">
         <h1>Cities through my lens!</h1>
         <p>Through the years, I like to take pictures of cities that I have been
            To look at the photo galleries, navigate through the map and select a pin!
@@ -34,27 +39,252 @@
         <br><br>
         <div id="travel-map" class="map"></div>
       </div>
+      <div class = "gallery-container">
+        <div class = "gallery-section">
+          <h1>Athens</h1>
+          <div id="athensCarousel" class="carousel-gallery carousel slide" data-ride="carousel">
+              <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#athensCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#athensCarousel" data-slide-to="1"></li>
+              <li data-target="#athensCarousel" data-slide-to="2"></li>
+              <li data-target="#athensCarousel" data-slide-to="3"></li>
+              <li data-target="#athensCarousel" data-slide-to="4"></li>
+            </ol>
+              <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+              <div class="item active">
+                <img class="travel-img" src="/images/travel/athens_1.jpg" alt="Athens 1">
+              </div>
+              <div class="item">
+                <img class="travel-img" src="/images/travel/athens_2.jpg" alt="Athens 2">
+              </div>
+              <div class="item">
+                <img class="travel-img" src="/images/travel/athens_3.jpg" alt="Athens 3">
+              </div>
+              <div class="item">
+                <img class="travel-img" src="/images/travel/athens_4.jpg" alt="Athens 4">
+              </div>
+              <div class="item">
+                <img class="travel-img" src="/images/travel/athens_5.jpg" alt="Athens 5">
+              </div>
+            </div>
+            <a class="left carousel-control" href="#athensCarousel" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#athensCarousel" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <a href="#map-display">
+            <button class="travel-button" onClick=initCenteredTravelMap(athens)>Take me there</button>
+          </a>
+        </div>
 
-      <div class="map-section">
-        <h1>Demographic</h1>
-        <p>Hi I am trying out the Geolocation API and the map below is the result!
-           The map shows the location where the page views come from
-           To see your mark on the map, please allow the location enabling, thank you!</p>
-        <br><br>
-        <div id="user-map" class="map"></div>
+        <div class = "gallery-section">
+          <h1>Prague</h1>
+          <div id="pragueCarousel" class="carousel-gallery carousel slide" data-ride="carousel">
+              <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#pragueCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#pragueCarousel" data-slide-to="1"></li>
+              <li data-target="#pragueCarousel" data-slide-to="2"></li>
+              <li data-target="#pragueCarousel" data-slide-to="3"></li>
+            </ol>
+              <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+              <div class="item active">
+                <img class="travel-img" src="/images/travel/prague_1.jpg" alt="Prague 1">
+              </div>
+              <div class="item">
+                <img class="travel-img" src="/images/travel/prague_2.jpg" alt="Prague 2">
+              </div>
+              <div class="item">
+                <img class="travel-img" src="/images/travel/prague_3.jpg" alt="Prague 3">
+              </div>
+              <div class="item">
+                <img class="travel-img" src="/images/travel/prague_4.jpg" alt="Prague 4">
+              </div>
+            </div>
+            <a class="left carousel-control" href="#pragueCarousel" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#pragueCarousel" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <a href="#map-display">
+            <button class="travel-button" onClick=initCenteredTravelMap(prague)>Take me there</button>
+          </a>
+        </div>
+
+        <div class = "gallery-section">
+          <h1>Florence</h1>
+          <div id="florenceCarousel" class="carousel-gallery carousel slide" data-ride="carousel">
+              <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#florenceCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#florenceCarousel" data-slide-to="1"></li>
+              <li data-target="#florenceCarousel" data-slide-to="2"></li>
+            </ol>
+              <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+              <div class="item active">
+                <img class="travel-img" src="/images/travel/florence_1.jpg" alt="Florence 1">
+              </div>
+              <div class="item">
+                <img class="travel-img" src="/images/travel/florence_2.jpg" alt="Florence 2">
+              </div>
+              <div class="item">
+                <img class="travel-img" src="/images/travel/florence_3.jpg" alt="Florence 3">
+              </div>
+            </div>
+            <a class="left carousel-control" href="#florenceCarousel" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#florenceCarousel" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <a href="#map-display">
+            <button class="travel-button" onClick=initCenteredTravelMap(florence)>Take me there</button>
+          </a>
+        </div>
       </div>
 
+      <div class = "gallery-container">
+        <div class = "gallery-section">
+          <h1>Salzburg</h1>
+          <div id="salzburgCarousel" class="carousel-gallery carousel slide" data-ride="carousel">
+              <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#salzburgCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#salzburgCarousel" data-slide-to="1"></li>
+              <li data-target="#salzburgCarousel" data-slide-to="2"></li>
+            </ol>
+              <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+              <div class="item active">
+                <img class="travel-img" src="/images/travel/salzburg_1.jpg" alt="Salzburg 1">
+              </div>
+              <div class="item">
+                <img class="travel-img" src="/images/travel/salzburg_2.jpg" alt="Salzburg 2">
+              </div>
+              <div class="item">
+                <img class="travel-img" src="/images/travel/salzburg_3.jpg" alt="Salzburg 3">
+              </div>
+            </div>
+            <a class="left carousel-control" href="#salzburgCarousel" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#salzburgCarousel" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <a href="#map-display">
+            <button class="travel-button" onClick=initCenteredTravelMap(salzburg)>Take me there</button>
+          </a>
+        </div>
+
+        <div class = "gallery-section">
+          <h1>Vatican</h1>
+          <div id="budapestCarousel" class="carousel-gallery carousel slide" data-ride="carousel">
+              <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#budapestCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#budapestCarousel" data-slide-to="1"></li>
+              <li data-target="#budapestCarousel" data-slide-to="2"></li>
+            </ol>
+              <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+              <div class="item active">
+                <img class="travel-img" src="/images/travel/budapest_1.jpg" alt="Budapest 1">
+              </div>
+              <div class="item">
+                <img class="travel-img" src="/images/travel/budapest_2.jpg" alt="Budapest 2">
+              </div>
+              <div class="item">
+                <img class="travel-img" src="/images/travel/budapest_3.jpg" alt="Budapest 3">
+              </div>
+            </div>
+            <a class="left carousel-control" href="#budapestCarousel" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#budapestCarousel" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <a href="#map-display">
+            <button class="travel-button" onClick=initCenteredTravelMap(budapest)>Take me there</button>
+          </a>
+        </div>
+
+        <div class = "gallery-section">
+          <h1>London</h1>
+          <div id="londonCarousel" class="carousel-gallery carousel slide" data-ride="carousel">
+              <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#londonCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#londonCarousel" data-slide-to="1"></li>
+              <li data-target="#londonCarousel" data-slide-to="2"></li>
+              <li data-target="#londonCarousel" data-slide-to="3"></li>
+              <li data-target="#londonCarousel" data-slide-to="4"></li>
+            </ol>
+              <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+              <div class="item active">
+                <img class="travel-img" src="/images/travel/london_1.jpg" alt="London 1">
+              </div>
+              <div class="item">
+                <img class="travel-img" src="/images/travel/london_2.jpg" alt="London 2">
+              </div>
+              <div class="item">
+                <img class="travel-img" src="/images/travel/london_3.jpg" alt="London 3">
+              </div>
+              <div class="item">
+                <img class="travel-img" src="/images/travel/london_4.jpg" alt="London 4">
+              </div>
+              <div class="item">
+                <img class="travel-img" src="/images/travel/london_5.jpg" alt="London 5">
+              </div>
+            </div>
+            <a class="left carousel-control" href="#londonCarousel" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#londonCarousel" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <a href="#map-display">
+            <button class="travel-button" onClick=initCenteredTravelMap(london)>Take me there</button>
+          </a>
+        </div>
+      </div>
+
+      <div style="height: 40px;"></div>
       <div class="footer">
         <!-- social media link -->
         <div class = "sns-container">
           <a href="https://www.instagram.com/raniatamara/">
-            <i class="sns-icon sns-icon w3-button fa fa-instagram " style="font-size:40px"></i>
+            <i class="sns-icon w3-button fa fa-instagram"></i>
           </a>
           <a href="https://www.linkedin.com/in/rania-rusly-a08132157/">
-            <i class="sns-icon w3-button fa fa-linkedin-square" style="font-size:40px"></i>
+            <i class="sns-icon w3-button fa fa-linkedin-square"></i>
           </a>
           <a href="https://github.com/raniarusly">
-            <i class="sns-icon w3-button fa fa-github-square" style="font-size:40px"></i>
+            <i class="sns-icon w3-button fa fa-github-square"></i>
           </a>
         </div>
         <div class="name-bar-item">© 2020 Rania Rusly</div>
