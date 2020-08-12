@@ -281,31 +281,3 @@ function createLocationMarker(location, map) {
   });
   return marker;
 }
-
-function centerAthens(){
-  initCenteredTravelMap(athens)
-}
-
-function centerPrague(){
-  initCenteredTravelMap(prague)
-}
-
-function centerFlorence(){
-  initCenteredTravelMap(florence)
-}
-
-function centerLondon(){
-  initCenteredTravelMap(london)
-}
-
-function centerSalzburg(){
-  initCenteredTravelMap(salzburg)
-}
-
-function centerVatican(){
-  initCenteredTravelMap(vatican)
-}
-
-function centerBudapest(){
-  initCenteredTravelMap(budapest)
-}
